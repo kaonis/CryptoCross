@@ -18,7 +18,7 @@ import javax.swing.*;
 import javax.swing.UIManager.*;
 import javax.swing.border.BevelBorder;
 
-public class CryptoCross extends JFrame {
+public class CryptoCross extends JFrame implements ActionListener {
 
     private JFrame thisFrame;
     private Letter[][] ar_letters; //board letter array
@@ -304,6 +304,7 @@ public class CryptoCross extends JFrame {
         leftPanel.add(boardPanel, BorderLayout.NORTH);
 
         btn_checkWord = new JButton("Έλεγχος λέξης");
+        btn_checkWord.addActionListener(this);
 
         leftPanel.add(btn_checkWord, BorderLayout.AFTER_LAST_LINE);
 
@@ -316,10 +317,15 @@ public class CryptoCross extends JFrame {
 
         //Help Buttons
         btn_deleteRow = new JButton("Διαγραφή Γραμμής");
+        btn_deleteRow.addActionListener(this);
         btn_reorderRow = new JButton("Αναδιάταξη Γραμμής");
+        btn_reorderRow.addActionListener(this);
         btn_reorderColumn = new JButton("Αναδιάταξη Στήλης");
+        btn_reorderColumn.addActionListener(this);
         btn_reorderBoard = new JButton("Αναδιάταξη Ταμπλό");
+        btn_reorderBoard.addActionListener(this);
         btn_swapLetters = new JButton("Εναλλαγή Γραμμάτων");
+        btn_swapLetters.addActionListener(this);
 
         //Help Text Fields
         tf_deleteRow = new JTextField("0");
@@ -512,14 +518,21 @@ public class CryptoCross extends JFrame {
                 btnArray_letter[i][j].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if (((JButton) e.getSource()).getBackground().equals(Color.YELLOW)) {
-
-//                            if (wordPilot.isNeighbour(i, j, tempXpos, tempYpos)) {
-//                                ((JButton) e.getSource()).setBackground(tempColor);
-//                            }
+                            // Deselect letter
+                            ((JButton) e.getSource()).setBackground(tempColor);
+                            currentWord.remove(tempLetter);
+                            
+                            // Update word points
+                            int_currentWordPoints = calculateWordPoints(currentWord);
+                            lb2_wordPoints.setText(Integer.toString(int_currentWordPoints));
                         } else {
+                            // Select letter
                             ((JButton) e.getSource()).setBackground(Color.YELLOW);
-
                             currentWord.add(tempLetter);
+                            
+                            // Update word points
+                            int_currentWordPoints = calculateWordPoints(currentWord);
+                            lb2_wordPoints.setText(Integer.toString(int_currentWordPoints));
                         }
                     }
                 });
@@ -663,18 +676,58 @@ public class CryptoCross extends JFrame {
 
     //Additional listeners
     public void actionPerformed(ActionEvent e) {
-//        if (e.getSource() == openButton) {
-//            int returnVal = ((JFileChooser) e.getSource()).showOpenDialog();
-//
-//            if (returnVal == JFileChooser.APPROVE_OPTION) {
-//                File file = ((JFileChooser) e.getSource()).getSelectedFile();
-//                //Logger.getLogger(CryptoCross.class.getName()).append("Opening: " + file.getName() + "." + "\n");
-//            } else {
-//                //Logger.getLogger(CryptoCross.class.getName()).append("Open command cancelled by user." + "\n");
-//            }
-//        }
         if (e.getSource() == btn_checkWord) {
-            gameBoard.checkWordValidity(currentWord);
+            if (currentWord.isEmpty()) {
+                JOptionPane.showMessageDialog(thisFrame,
+                        "Δεν έχετε επιλέξει καμία λέξη!",
+                        "Σφάλμα",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            // Check if word is valid
+            if (gameBoard.checkWordValidity(currentWord)) {
+                // Calculate points
+                int wordPoints = calculateWordPoints(currentWord);
+                
+                // Update player score
+                player.setPlayerScore(player.getPlayerScore() + wordPoints);
+                player.playerCompletedAWord();
+                
+                // Update UI
+                lb2_totalPoints.setText(Integer.toString(player.getPlayerScore()));
+                lb2_wordsFound.setText(player.getCompletedWordsNum() + "/" + int_maxAllowedWords);
+                lb_foundAword.setText("✓ Σωστή λέξη! +" + wordPoints + " πόντοι");
+                
+                clearCurrentWord();
+                
+                // Check win condition
+                if (player.getPlayerScore() >= int_goalPoints) {
+                    JOptionPane.showMessageDialog(thisFrame,
+                            "Συγχαρητήρια! Κερδίσατε το παιχνίδι!\n" +
+                            "Βαθμολογία: " + player.getPlayerScore() + "\n" +
+                            "Λέξεις που βρήκατε: " + player.getCompletedWordsNum(),
+                            "Νίκη!",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    disableGameControls();
+                    return;
+                }
+                
+                // Check lose condition
+                if (player.getCompletedWordsNum() >= int_maxAllowedWords) {
+                    JOptionPane.showMessageDialog(thisFrame,
+                            "Το παιχνίδι τελείωσε!\n" +
+                            "Δεν κατάφερες να φτάσεις τον στόχο.\n" +
+                            "Βαθμολογία: " + player.getPlayerScore() + "/" + int_goalPoints,
+                            "Τέλος παιχνιδιού",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    disableGameControls();
+                }
+            } else {
+                // Invalid word
+                lb_foundAword.setText("✗ Λανθασμένη λέξη!");
+                clearCurrentWord();
+            }
 
         } else if (e.getSource() == btn_deleteRow) {
             if (int_TotalDeleteRow - int_UsedDeleteRow > 0) {
@@ -702,12 +755,58 @@ public class CryptoCross extends JFrame {
                 gameBoard.reorderBoard();
                 int_UsedReorderBoard++;
                 checkHelps();
+                refreshBoard();
             }
 
         } else if (e.getSource() == btn_swapLetters) {
             if (int_TotalSwapLetter - int_UsedSwapLetter > 0) {
                 int_UsedSwapLetter++;
                 checkHelps();
+            }
+        }
+    }
+    
+    private int calculateWordPoints(ArrayList<Letter> word) {
+        int points = 0;
+        for (Letter letter : word) {
+            points += letter.getPoints();
+        }
+        return points;
+    }
+    
+    private void clearCurrentWord() {
+        // Clear the current word and reset button colors
+        for (Letter letter : currentWord) {
+            int x = letter.getXcoord();
+            int y = letter.getYcoord();
+            btnArray_letter[x][y].setBackground(letter.getColor());
+        }
+        currentWord.clear();
+        int_currentWordPoints = 0;
+        lb2_wordPoints.setText("0");
+    }
+    
+    private void disableGameControls() {
+        btn_checkWord.setEnabled(false);
+        btn_deleteRow.setEnabled(false);
+        btn_reorderRow.setEnabled(false);
+        btn_reorderColumn.setEnabled(false);
+        btn_reorderBoard.setEnabled(false);
+        btn_swapLetters.setEnabled(false);
+        
+        for (int i = 0; i < gameBoard.getBoardLength(); i++) {
+            for (int j = 0; j < gameBoard.getBoardLength(); j++) {
+                btnArray_letter[i][j].setEnabled(false);
+            }
+        }
+    }
+    
+    private void refreshBoard() {
+        ar_letters = gameBoard.getBoardArray();
+        for (int i = 0; i < gameBoard.getBoardLength(); i++) {
+            for (int j = 0; j < gameBoard.getBoardLength(); j++) {
+                Color tempColor = ar_letters[i][j].getColor();
+                btnArray_letter[i][j].setBackground(tempColor);
             }
         }
     }
