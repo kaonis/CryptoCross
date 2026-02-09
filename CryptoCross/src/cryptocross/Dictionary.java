@@ -13,34 +13,52 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Manages the word dictionary for the CryptoCross game.
+ * Handles loading words from file, generating board words, and word validation.
+ */
 public class Dictionary {
     
+    /** List of all words loaded from the dictionary file */
     private     ArrayList<String>   wordlist;
+    /** List of words selected to be placed on the board */
     private     ArrayList<String>   boardWords;
+    /** Total size of the board (boardLength * boardLength) */
     private     int                 boardSize;
+    /** Number of letters filled with dictionary words */
     private     int                 filledLetters;
+    /** Length of one dimension of the board */
     private     int                 boardLength;
     
-    /*
-     *  Getters.
+    /**
+     * Gets the list of words selected for the board.
+     * @return ArrayList of board words
      */
-    
     public ArrayList<String> getBoardWords() {
         return this.boardWords;
     }
 
+    /**
+     * Gets the total number of letters filled with dictionary words.
+     * @return the count of filled letters
+     */
     public int getTotalFilledLetters() {
         return filledLetters;
     }
 
+    /**
+     * Gets the number of empty spaces on the board (not filled with dictionary words).
+     * @return the count of empty spaces
+     */
     public int getEmptySpaces() {
         return boardSize - filledLetters;
     }
     
-    /*
-     * Constuctor.
-     * @param filename The name of the dictionary used for the board
-     * @param boardLength The length of one dimension of the board.
+    /**
+     * Constructs a new Dictionary by loading words from a file.
+     * Reads the dictionary file, capitalizes all words, and generates board words.
+     * @param filename the name of the dictionary file to load
+     * @param boardLength the length (dimension) of the game board
      */
     public Dictionary(String filename, int boardLength) {
         boardWords = new ArrayList<>();
@@ -65,9 +83,10 @@ public class Dictionary {
         generateBoardWords();
     }
     
-    /*
-     *  Method to generate brand new board words.
-     *  @return Nothing.
+    /**
+     * Generates a new set of words to be placed on the board.
+     * Selects words from the dictionary to fill the board while leaving some empty spaces
+     * for random characters.
      */
     public void generateBoardWords() {
         boardSize           =   boardLength * boardLength;
@@ -94,10 +113,12 @@ public class Dictionary {
         }
     }
     
-    /*
-     * Method to decide how much space the next word has to take.
-     * @param filledLetters The sum of characters of already added words.
-     * @return The number of letters for the next word.
+    /**
+     * Determines how many letters the next word should have.
+     * Calculates based on filled letters to maintain a balance between
+     * dictionary words and random characters on the board.
+     * @param filledLetters the sum of characters of already added words
+     * @return the number of letters for the next word, or 0 if no more words should be added
      */
     private int lettersToGet(int filledLetters) {
         
@@ -131,12 +152,12 @@ public class Dictionary {
         return 0;
     }
     
-    /*
-     *  Method to get a new random word based on the 
-     *  maximum length of characters we want.
-     *  @param maxSize The maximum length of characters for the 
-     *  word we want to generate.
-     *  @return A new word for our board.
+    /**
+     * Gets a new random word from the dictionary that hasn't been used yet.
+     * Ensures the word is not longer than the specified maximum size and
+     * has not been previously selected for the board.
+     * @param maxSize the maximum length of characters for the word
+     * @return a new word for the board
      */
     private String getNuWord(int maxSize) {
         SecureRandom    random        = new SecureRandom();
@@ -161,11 +182,10 @@ public class Dictionary {
         return nuWord;
     }
     
-    /*
-     *  Method that checks if the word exists 
-     *  in our list.
-     *  @param wordToFind The word we want to match inside the Board.
-     *  @return A flag explaining if the word is in the board or not.
+    /**
+     * Checks if a word exists in the dictionary.
+     * @param wordToFind the word to search for in the dictionary
+     * @return true if the word exists in the dictionary, false otherwise
      */
     public Boolean containsWord(String wordToFind) {
         for (String word : wordlist) {
@@ -176,10 +196,12 @@ public class Dictionary {
         return false;
     }
     
-    /*
-     *  Method to capitalize a whole word.
-     *  @param word The word we want to capitalize.
-     *  @return The word fully capitalized.
+    /**
+     * Capitalizes a word and removes Greek accent marks.
+     * Converts all characters to uppercase and replaces toned Greek vowels
+     * with their non-toned equivalents.
+     * @param word the word to capitalize
+     * @return the word fully capitalized with accent marks removed
      */
     private String Capitalize(String word) {
         // Concert all chars to uppercase
