@@ -29,6 +29,9 @@ import javax.swing.border.BevelBorder;
  */
 public class CryptoCross extends JFrame implements ActionListener {
 
+    /** Path to the dictionary file to use for the game (shared across instances) */
+    private static String str_dictionaryPath = "el-dictionary.txt";
+
     private JFrame thisFrame;
     /** 2D array of letters representing the game board */
     private Letter[][] ar_letters;
@@ -162,7 +165,7 @@ public class CryptoCross extends JFrame implements ActionListener {
         }
 
         try {
-            gameBoard = new Board(int_boardSize);
+            gameBoard = new Board(int_boardSize, str_dictionaryPath);
         } catch (UknownCharacterException ex) {
             Logger.getLogger(CryptoCross.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -760,6 +763,16 @@ public class CryptoCross extends JFrame implements ActionListener {
         //Create a file chooser
         final JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Επιλέξτε Αρχείο Λέξεων");
+        
+        // Add description about supported format
+        fileChooser.setAccessory(new JLabel("<html><body style='width: 200px; padding: 10px;'>" +
+                "<b>Υποστηριζόμενη Μορφή:</b><br/>" +
+                "• Αρχεία κειμένου (.txt)<br/>" +
+                "• Μία λέξη ανά γραμμή<br/>" +
+                "• Ελληνικά κεφαλαία γράμματα<br/>" +
+                "• Χωρίς τόνους (Α, Ε, Η, Ι, Ο, Υ, Ω)<br/>" +
+                "</body></html>"));
+        
         fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
             @Override
             public boolean accept(java.io.File f) {
@@ -776,14 +789,35 @@ public class CryptoCross extends JFrame implements ActionListener {
         
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             java.io.File selectedFile = fileChooser.getSelectedFile();
-            JOptionPane.showMessageDialog(thisFrame,
-                    "Επιλέχθηκε το αρχείο: " + selectedFile.getName() + "\n\n" +
-                    "Σημείωση: Η αλλαγή του αρχείου λέξεων θα ισχύσει στο επόμενο παιχνίδι.\n" +
-                    "Το τρέχον παιχνίδι χρησιμοποιεί ακόμα το προηγούμενο αρχείο.",
-                    "Αρχείο Λέξεων",
-                    JOptionPane.INFORMATION_MESSAGE);
-            // Note: Actual file loading would require refactoring the Dictionary class
-            // to support dynamic file loading, which is beyond minimal changes scope
+            
+            // Validate the dictionary file
+            try {
+                // Try to create a test Dictionary to validate the file
+                Dictionary testDict = new Dictionary(selectedFile.getAbsolutePath(), 5);
+                
+                // If successful, update the dictionary path
+                str_dictionaryPath = selectedFile.getAbsolutePath();
+                
+                JOptionPane.showMessageDialog(thisFrame,
+                        "Επιλέχθηκε το αρχείο: " + selectedFile.getName() + "\n\n" +
+                        "Η αλλαγή του αρχείου λέξεων θα ισχύσει στο επόμενο παιχνίδι.\n" +
+                        "Το τρέχον παιχνίδι χρησιμοποιεί ακόμα το προηγούμενο αρχείο.",
+                        "Αρχείο Λέξεων",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(thisFrame,
+                        "Σφάλμα κατά τη φόρτωση του αρχείου λέξεων:\n" +
+                        selectedFile.getName() + "\n\n" +
+                        "Παρακαλώ βεβαιωθείτε ότι το αρχείο:\n" +
+                        "• Είναι αρχείο κειμένου (.txt)\n" +
+                        "• Περιέχει μία λέξη ανά γραμμή\n" +
+                        "• Χρησιμοποιεί Ελληνικά κεφαλαία γράμματα\n" +
+                        "• Δεν έχει τόνους (χρησιμοποιήστε Α, Ε, Η, Ι, Ο, Υ, Ω)",
+                        "Σφάλμα Αρχείου",
+                        JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(CryptoCross.class.getName()).log(Level.WARNING, 
+                        "Failed to load dictionary file: " + selectedFile.getAbsolutePath(), ex);
+            }
         }
     }
 

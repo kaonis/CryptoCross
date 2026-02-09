@@ -49,11 +49,22 @@ public class Board implements BoardInterface {
      * @throws UknownCharacterException if an unknown character is encountered during board generation
      */
     public Board(Integer boardLength) throws UknownCharacterException {
+        this(boardLength, "el-dictionary.txt");
+    }
+
+    /**
+     * Constructs a new Board with the specified dimensions and custom dictionary.
+     * Initializes the board array, dictionary, and generates the initial board layout.
+     * @param boardLength the length (dimension) of the square board
+     * @param dictionaryPath the path to the dictionary file to use
+     * @throws UknownCharacterException if an unknown character is encountered during board generation
+     */
+    public Board(Integer boardLength, String dictionaryPath) throws UknownCharacterException {
         this.boardLength = boardLength;
         boardArray = new Letter[boardLength][boardLength];
         random = new SecureRandom();
 
-        dict = new Dictionary("el-dictionary.txt", boardLength);
+        dict = new Dictionary(dictionaryPath, boardLength);
 
         wordsNum = 0;
 

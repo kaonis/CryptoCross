@@ -244,4 +244,36 @@ public class BoardTest {
         assertEquals(5, boardArray.length, "Board should still be 5x5");
         assertEquals(5, boardArray[0].length, "Board should still be 5x5");
     }
+    
+    @Test
+    public void testCustomDictionaryPath() throws UknownCharacterException {
+        // Test that Board can be created with a custom dictionary path
+        Board customBoard = new Board(5, "custom-test-dictionary.txt");
+        assertNotNull(customBoard, "Board should be created with custom dictionary");
+        assertNotNull(customBoard.getBoardArray(), "Board array should be initialized");
+        
+        Letter[][] boardArray = customBoard.getBoardArray();
+        assertEquals(5, boardArray.length, "Board should be 5x5");
+        assertEquals(5, boardArray[0].length, "Board should be 5x5");
+        
+        // Verify all positions are filled
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                assertNotNull(boardArray[i][j], 
+                    "Position [" + i + "][" + j + "] should not be null");
+            }
+        }
+    }
+    
+    @Test
+    public void testDefaultDictionaryConstructor() throws UknownCharacterException {
+        // Test that the default constructor still works (backwards compatibility)
+        Board defaultBoard = new Board(5);
+        assertNotNull(defaultBoard, "Board should be created with default dictionary");
+        assertNotNull(defaultBoard.getBoardArray(), "Board array should be initialized");
+        
+        Letter[][] boardArray = defaultBoard.getBoardArray();
+        assertEquals(5, boardArray.length, "Board should be 5x5");
+        assertEquals(5, boardArray[0].length, "Board should be 5x5");
+    }
 }
