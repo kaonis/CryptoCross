@@ -499,7 +499,7 @@ public class CryptoCross extends JFrame implements ActionListener {
                 String str_letterBtnTxt = ar_letters[i][j].getLetterChar()
                         + " " + ar_letters[i][j].getPoints();
 
-                //Only some letters icons have been made
+                //All letters icons are now available
                 try {
                     if (ar_letters[i][j].getLetterChar() == 'Α') {
 
@@ -527,6 +527,54 @@ public class CryptoCross extends JFrame implements ActionListener {
                     } else if (ar_letters[i][j].getLetterChar() == 'Θ') {
                         btnArray_letter[i][j].setIcon(new ImageIcon(
                                 ImageIO.read(getClass().getResource("/images/Θ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Ι') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ι.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Κ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Κ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Λ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Λ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Μ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Μ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Ν') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ν.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Ξ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ξ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Ο') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ο.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Π') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Π.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Ρ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ρ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Σ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Σ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Τ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Τ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Υ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Υ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Φ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Φ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Χ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Χ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Ψ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ψ.png"))));
+                    } else if (ar_letters[i][j].getLetterChar() == 'Ω') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ω.png"))));
                     } else if (ar_letters[i][j].getLetterChar() == '?') {
                         btnArray_letter[i][j].setIcon(new ImageIcon(
                                 ImageIO.read(getClass().getResource("/images/Balandeur.png"))));
@@ -1109,7 +1157,7 @@ public class CryptoCross extends JFrame implements ActionListener {
                 // Clear existing icon
                 btnArray_letter[i][j].setIcon(null);
                 
-                // Set icon if image exists, otherwise use text
+                // Set icon for all Greek letters
                 try {
                     if (letterChar == 'Α') {
                         btnArray_letter[i][j].setIcon(new ImageIcon(
@@ -1135,6 +1183,54 @@ public class CryptoCross extends JFrame implements ActionListener {
                     } else if (letterChar == 'Θ') {
                         btnArray_letter[i][j].setIcon(new ImageIcon(
                                 ImageIO.read(getClass().getResource("/images/Θ.png"))));
+                    } else if (letterChar == 'Ι') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ι.png"))));
+                    } else if (letterChar == 'Κ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Κ.png"))));
+                    } else if (letterChar == 'Λ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Λ.png"))));
+                    } else if (letterChar == 'Μ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Μ.png"))));
+                    } else if (letterChar == 'Ν') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ν.png"))));
+                    } else if (letterChar == 'Ξ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ξ.png"))));
+                    } else if (letterChar == 'Ο') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ο.png"))));
+                    } else if (letterChar == 'Π') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Π.png"))));
+                    } else if (letterChar == 'Ρ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ρ.png"))));
+                    } else if (letterChar == 'Σ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Σ.png"))));
+                    } else if (letterChar == 'Τ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Τ.png"))));
+                    } else if (letterChar == 'Υ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Υ.png"))));
+                    } else if (letterChar == 'Φ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Φ.png"))));
+                    } else if (letterChar == 'Χ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Χ.png"))));
+                    } else if (letterChar == 'Ψ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ψ.png"))));
+                    } else if (letterChar == 'Ω') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ω.png"))));
                     } else if (letterChar == '?') {
                         btnArray_letter[i][j].setIcon(new ImageIcon(
                                 ImageIO.read(getClass().getResource("/images/Balandeur.png"))));
