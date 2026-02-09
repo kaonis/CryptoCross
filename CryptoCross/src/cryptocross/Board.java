@@ -76,6 +76,7 @@ public class Board implements BoardInterface {
             wordsNum++;
             for (char c : word.toCharArray()) {
                 Letter let = decideColor(i, j, c);
+                let.setCoords(i, j);
                 boardArray[i][j] = let;
 
                 if (j + 1 == boardLength) {
@@ -91,6 +92,7 @@ public class Board implements BoardInterface {
             while (j < boardLength) {
                 Character c = getRandomChar();
                 Letter let = decideColor(i, j, c);
+                let.setCoords(i, j);
                 boardArray[i][j] = let;
                 j++;
             }
@@ -115,6 +117,10 @@ public class Board implements BoardInterface {
                 Letter temp = a[i][j];
                 a[i][j] = a[m][n];
                 a[m][n] = temp;
+                
+                // Update coordinates after swap
+                a[i][j].setCoords(i, j);
+                a[m][n].setCoords(m, n);
             }
         }
     }
@@ -268,10 +274,18 @@ public class Board implements BoardInterface {
     //Check if a word exists in the dictionary
     @Override
     public Boolean checkWordValidity(ArrayList<Letter> word) {
-        if (true) {
-            return true;
-        } else {
+        if (word == null || word.isEmpty()) {
             return false;
         }
+        
+        // Build the word string from letters
+        StringBuilder wordBuilder = new StringBuilder();
+        for (Letter letter : word) {
+            wordBuilder.append(letter.getLetterChar());
+        }
+        String wordString = wordBuilder.toString();
+        
+        // Check if word exists in dictionary
+        return dict.containsWord(wordString);
     }
 }
