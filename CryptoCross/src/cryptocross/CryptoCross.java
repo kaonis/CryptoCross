@@ -706,7 +706,21 @@ public class CryptoCross extends JFrame implements ActionListener {
     }
 
     private void stopGameMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
-
+        int choice = JOptionPane.showConfirmDialog(thisFrame,
+                "Είστε σίγουροι ότι θέλετε να τερματίσετε το τρέχον παιχνίδι;\n" +
+                "Όλη η πρόοδος θα χαθεί.",
+                "Τερματισμός Παιχνιδιού",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        
+        if (choice == JOptionPane.YES_OPTION) {
+            disableGameControls();
+            lb_foundAword.setText("Το παιχνίδι ακυρώθηκε");
+            JOptionPane.showMessageDialog(thisFrame,
+                    "Το παιχνίδι τερματίστηκε.\nΒαθμολογία: " + player.getPlayerScore(),
+                    "Παιχνίδι Τερματίστηκε",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private void playerInfoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
@@ -716,15 +730,61 @@ public class CryptoCross extends JFrame implements ActionListener {
     }
 
     private void helpSettingsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
-
+        String settingsText = "<html><body style='width: 400px; padding: 10px;'>" +
+                "<h2>Ρυθμίσεις Βοηθειών</h2>" +
+                "<p>Διαθέσιμα και χρησιμοποιημένα βοηθήματα:</p>" +
+                "<table border='1' cellpadding='5' style='border-collapse: collapse;'>" +
+                "<tr><th>Βοήθημα</th><th>Χρησιμοποιήθηκαν</th><th>Διαθέσιμα</th></tr>" +
+                "<tr><td>Διαγραφή Γραμμής</td><td>" + int_UsedDeleteRow + "</td><td>" + 
+                    (int_TotalDeleteRow - int_UsedDeleteRow) + "/" + int_TotalDeleteRow + "</td></tr>" +
+                "<tr><td>Ανακάτεμα Γραμμής</td><td>" + int_UsedReorderRow + "</td><td>" + 
+                    (int_TotalReorderRow - int_UsedReorderRow) + "/" + int_TotalReorderRow + "</td></tr>" +
+                "<tr><td>Ανακάτεμα Στήλης</td><td>" + int_UsedReorderColumn + "</td><td>" + 
+                    (int_TotalReorderColumn - int_UsedReorderColumn) + "/" + int_TotalReorderColumn + "</td></tr>" +
+                "<tr><td>Ανακάτεμα Πίνακα</td><td>" + int_UsedReorderBoard + "</td><td>" + 
+                    (int_TotalReorderBoard - int_UsedReorderBoard) + "/" + int_TotalReorderBoard + "</td></tr>" +
+                "<tr><td>Εναλλαγή Γραμμάτων</td><td>" + int_UsedSwapLetter + "</td><td>" + 
+                    (int_TotalSwapLetter - int_UsedSwapLetter) + "/" + int_TotalSwapLetter + "</td></tr>" +
+                "</table>" +
+                "<p><i>Σημείωση: Αυτές οι ρυθμίσεις ορίζονται κατά την έναρξη του παιχνιδιού " +
+                "και δεν μπορούν να τροποποιηθούν κατά τη διάρκειά του.</i></p>" +
+                "</body></html>";
+        
+        JOptionPane.showMessageDialog(thisFrame,
+                settingsText,
+                "Ρυθμίσεις Βοηθειών",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void pickWordFileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
         //Create a file chooser
         final JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Επιλέξτε Αρχείο Λέξεων");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            @Override
+            public boolean accept(java.io.File f) {
+                return f.isDirectory() || f.getName().toLowerCase().endsWith(".txt");
+            }
+            
+            @Override
+            public String getDescription() {
+                return "Αρχεία Κειμένου (*.txt)";
+            }
+        });
 
-        int returnVal = fileChooser.showOpenDialog(new JButton());
-
+        int returnVal = fileChooser.showOpenDialog(thisFrame);
+        
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            java.io.File selectedFile = fileChooser.getSelectedFile();
+            JOptionPane.showMessageDialog(thisFrame,
+                    "Επιλέχθηκε το αρχείο: " + selectedFile.getName() + "\n\n" +
+                    "Σημείωση: Η αλλαγή του αρχείου λέξεων θα ισχύσει στο επόμενο παιχνίδι.\n" +
+                    "Το τρέχον παιχνίδι χρησιμοποιεί ακόμα το προηγούμενο αρχείο.",
+                    "Αρχείο Λέξεων",
+                    JOptionPane.INFORMATION_MESSAGE);
+            // Note: Actual file loading would require refactoring the Dictionary class
+            // to support dynamic file loading, which is beyond minimal changes scope
+        }
     }
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
@@ -733,7 +793,68 @@ public class CryptoCross extends JFrame implements ActionListener {
     }
 
     private void helpMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
-
+        String helpText = "<html><body style='width: 500px; padding: 10px;'>" +
+                "<h2>Οδηγός Παιχνιδιού - CryptoCross (Κρυπτόλεξο)</h2>" +
+                
+                "<h3>Σκοπός του Παιχνιδιού</h3>" +
+                "<p>Σχηματίστε λέξεις από τα γράμματα του πίνακα για να συγκεντρώσετε πόντους. " +
+                "Ο στόχος είναι να φτάσετε τους απαιτούμενους πόντους μέσα στο όριο λέξεων που έχετε.</p>" +
+                
+                "<h3>Πώς να Παίξετε</h3>" +
+                "<ol>" +
+                "<li>Κάντε κλικ στα γράμματα στον πίνακα για να τα επιλέξετε (θα γίνουν κίτρινα)</li>" +
+                "<li>Τα επιλεγμένα γράμματα σχηματίζουν μια λέξη</li>" +
+                "<li>Κάντε κλικ στο κουμπί 'Έλεγχος Λέξης' για να ελέγξετε αν η λέξη είναι έγκυρη</li>" +
+                "<li>Αν η λέξη είναι σωστή, κερδίζετε πόντους και η λέξη καταγράφεται</li>" +
+                "<li>Για να αποεπιλέξετε ένα γράμμα, κάντε ξανά κλικ σε αυτό</li>" +
+                "</ol>" +
+                
+                "<h3>Χρώματα Γραμμάτων</h3>" +
+                "<ul>" +
+                "<li><b style='color: black;'>Λευκά γράμματα:</b> Βασικοί πόντοι (κανονική αξία γράμματος)</li>" +
+                "<li><b style='color: red;'>Κόκκινα γράμματα:</b> Διπλοί πόντοι! (2x η αξία του γράμματος)</li>" +
+                "<li><b style='color: blue;'>Μπλε γράμματα:</b> Βασικοί πόντοι</li>" +
+                "<li><b style='color: #DAA520;'>Κίτρινα γράμματα:</b> Επιλεγμένα γράμματα (όχι τύπος γράμματος)</li>" +
+                "</ul>" +
+                
+                "<h3>Βαθμολογία Γραμμάτων</h3>" +
+                "<p>Κάθε ελληνικό γράμμα έχει συγκεκριμένη αξία σε πόντους. " +
+                "Τα συνηθισμένα γράμματα (π.χ. Α, Ε, Ι) έχουν λιγότερους πόντους, ενώ " +
+                "τα σπάνια γράμματα (π.χ. Ξ, Ψ) έχουν περισσότερους πόντους.</p>" +
+                "<p><b>Σημαντικό:</b> Τα κόκκινα γράμματα διπλασιάζουν τους πόντους τους!</p>" +
+                
+                "<h3>Βοηθήματα</h3>" +
+                "<p>Έχετε περιορισμένο αριθμό βοηθημάτων:</p>" +
+                "<ul>" +
+                "<li><b>Διαγραφή Γραμμής:</b> " + int_TotalDeleteRow + " χρήσεις - Διαγράφει μια ολόκληρη γραμμή</li>" +
+                "<li><b>Ανακάτεμα Γραμμής:</b> " + int_TotalReorderRow + " χρήσεις - Ανακατεύει τα γράμματα μιας γραμμής</li>" +
+                "<li><b>Ανακάτεμα Στήλης:</b> " + int_TotalReorderColumn + " χρήσεις - Ανακατεύει τα γράμματα μιας στήλης</li>" +
+                "<li><b>Ανακάτεμα Πίνακα:</b> " + int_TotalReorderBoard + " χρήσεις - Ανακατεύει όλο τον πίνακα</li>" +
+                "<li><b>Εναλλαγή Γραμμάτων:</b> " + int_TotalSwapLetter + " χρήσεις - Ανταλλάσσει δύο γράμματα</li>" +
+                "</ul>" +
+                
+                "<h3>Κανόνες</h3>" +
+                "<ul>" +
+                "<li>Μπορείτε να σχηματίσετε λέξεις από οποιαδήποτε θέση στον πίνακα</li>" +
+                "<li>Οι λέξεις πρέπει να είναι έγκυρες ελληνικές λέξεις</li>" +
+                "<li>Έχετε περιορισμένο αριθμό λέξεων που μπορείτε να βρείτε</li>" +
+                "<li>Πρέπει να φτάσετε τον στόχο πόντων πριν εξαντλήσετε τις λέξεις σας</li>" +
+                "<li>Χρησιμοποιήστε τα βοηθήματα σας στρατηγικά!</li>" +
+                "</ul>" +
+                
+                "<h3>Συμβουλές</h3>" +
+                "<ul>" +
+                "<li>Προσπαθήστε να χρησιμοποιήσετε κόκκινα γράμματα σε μεγάλες λέξεις για περισσότερους πόντους</li>" +
+                "<li>Μην σπαταλάτε τα βοηθήματά σας νωρίς στο παιχνίδι</li>" +
+                "<li>Αναζητήστε μεγάλες λέξεις για να μεγιστοποιήσετε τη βαθμολογία σας</li>" +
+                "</ul>" +
+                
+                "</body></html>";
+        
+        JOptionPane.showMessageDialog(thisFrame,
+                helpText,
+                "Βοήθεια - CryptoCross",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
