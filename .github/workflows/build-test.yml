@@ -1,0 +1,54 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build and Test on Java 17
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: Set up Ant
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ant
+    
+    - name: Build project
+      run: |
+        cd CryptoCross
+        ant clean compile jar
+    
+    - name: Compile tests
+      run: |
+        cd CryptoCross
+        ant compile-test
+    
+    - name: Run tests
+      run: |
+        cd CryptoCross
+        java -jar lib/junit-platform-console-standalone-1.10.1.jar \
+          --class-path build/classes:build/test/classes \
+          --scan-class-path \
+          --fail-if-no-tests
+    
+    - name: Upload build artifacts
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: cryptocross-jar
+        path: CryptoCross/dist/CryptoCross.jar
+        retention-days: 7

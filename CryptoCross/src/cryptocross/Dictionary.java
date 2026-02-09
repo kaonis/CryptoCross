@@ -141,7 +141,7 @@ public class Dictionary {
     private String getNuWord(int maxSize) {
         SecureRandom    random        = new SecureRandom();
         int             randomNumber  = 0;
-        String          nuWord        = new String();
+        String          nuWord        = "";
         boolean         found;
         
         // Get a new word that is not previously used.
