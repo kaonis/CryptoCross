@@ -200,15 +200,20 @@ public class Dictionary {
      * Capitalizes a word and removes Greek accent marks.
      * Converts all characters to uppercase and replaces toned Greek vowels
      * with their non-toned equivalents.
+     * 
+     * Note: The el-dictionary.txt file has been pre-normalized to remove
+     * diacritics, making most of this processing redundant. However, this
+     * normalization is kept as a safety measure for edge cases and to ensure
+     * consistent behavior regardless of the dictionary source.
+     * 
      * @param word the word to capitalize
      * @return the word fully capitalized with accent marks removed
      */
     private String Capitalize(String word) {
-        // Concert all chars to uppercase
+        // Convert all chars to uppercase
         word = word.toUpperCase();
-        // replace every occurrence of toned char
-        // in the Greek Alphabet and replace it
-        // with the non-toned version.
+        // Replace every occurrence of toned char
+        // in the Greek Alphabet with the non-toned version.
         word = word.replaceAll("[Ά]", "Α");
         word = word.replaceAll("[Έ]", "Ε");
         word = word.replaceAll("[Ή]", "Η");
