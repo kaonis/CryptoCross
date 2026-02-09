@@ -66,7 +66,7 @@ public class WordPilot {
      * @param yPosition the Y position to set
      */
     public void setYposition(Integer yPosition) {
-        this.xPosition = yPosition;
+        this.yPosition = yPosition;
     }
     
     /**
@@ -91,10 +91,10 @@ public class WordPilot {
      * @param xPosition the current X position
      * @param yPosition the current Y position
      * @param xNew the new X position to check
-     * @param yNews the new Y position to check (parameter name appears to have a typo)
+     * @param yNew the new Y position to check
      * @return true if the positions are adjacent neighbors, false otherwise
      */
-    public Boolean isNeighbour(Integer xPosition, Integer yPosition, Integer xNew, Integer yNews) {
+    public Boolean isNeighbour(Integer xPosition, Integer yPosition, Integer xNew, Integer yNew) {
         if ((xNew - xPosition == 0 || xNew - xPosition == 1) 
                 && (yNew - yPosition == 0 || yNew - yPosition == 1)) {
             return true;

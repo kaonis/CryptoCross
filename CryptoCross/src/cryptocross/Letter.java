@@ -42,6 +42,8 @@ public abstract class Letter {
      */
     public Letter(Character ch_letter, Integer int_x_coord, Integer int_y_coord) {
         this.ch_letter = ch_letter;
+        this.int_x_coord = int_x_coord;
+        this.int_y_coord = int_y_coord;
     }
 
     /**
