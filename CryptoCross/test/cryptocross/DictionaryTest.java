@@ -123,7 +123,7 @@ public class DictionaryTest {
         
         for (String word : boardWords) {
             for (char c : word.toCharArray()) {
-                assertFalse(diacritics.indexOf(c) >= 0, 
+                assertFalse(diacritics.contains(String.valueOf(c)), 
                     "Word '" + word + "' should not contain diacritics. Found: " + c);
             }
         }
@@ -140,7 +140,7 @@ public class DictionaryTest {
         
         for (String word : boardWords) {
             for (char c : word.toCharArray()) {
-                assertTrue(greekAlphabet.indexOf(c) >= 0, 
+                assertTrue(greekAlphabet.contains(String.valueOf(c)), 
                     "Word '" + word + "' contains non-Greek character: " + c);
             }
         }
