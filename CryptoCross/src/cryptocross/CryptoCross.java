@@ -699,15 +699,7 @@ public class CryptoCross extends JFrame implements ActionListener {
                 lb2_wordsFound.setText(player.getCompletedWordsNum() + "/" + int_maxAllowedWords);
                 lb_foundAword.setText("✓ Σωστή λέξη! +" + wordPoints + " πόντοι");
                 
-                // Clear the current word and reset button colors
-                for (Letter letter : currentWord) {
-                    int x = letter.getXcoord();
-                    int y = letter.getYcoord();
-                    btnArray_letter[x][y].setBackground(letter.getColor());
-                }
-                currentWord.clear();
-                int_currentWordPoints = 0;
-                lb2_wordPoints.setText("0");
+                clearCurrentWord();
                 
                 // Check win condition
                 if (player.getPlayerScore() >= int_goalPoints) {
@@ -734,16 +726,7 @@ public class CryptoCross extends JFrame implements ActionListener {
             } else {
                 // Invalid word
                 lb_foundAword.setText("✗ Λανθασμένη λέξη!");
-                
-                // Clear the current word and reset button colors
-                for (Letter letter : currentWord) {
-                    int x = letter.getXcoord();
-                    int y = letter.getYcoord();
-                    btnArray_letter[x][y].setBackground(letter.getColor());
-                }
-                currentWord.clear();
-                int_currentWordPoints = 0;
-                lb2_wordPoints.setText("0");
+                clearCurrentWord();
             }
 
         } else if (e.getSource() == btn_deleteRow) {
@@ -789,6 +772,18 @@ public class CryptoCross extends JFrame implements ActionListener {
             points += letter.getPoints();
         }
         return points;
+    }
+    
+    private void clearCurrentWord() {
+        // Clear the current word and reset button colors
+        for (Letter letter : currentWord) {
+            int x = letter.getXcoord();
+            int y = letter.getYcoord();
+            btnArray_letter[x][y].setBackground(letter.getColor());
+        }
+        currentWord.clear();
+        int_currentWordPoints = 0;
+        lb2_wordPoints.setText("0");
     }
     
     private void disableGameControls() {
