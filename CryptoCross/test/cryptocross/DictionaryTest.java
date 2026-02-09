@@ -99,4 +99,50 @@ public class DictionaryTest {
         assertTrue(largeDictionary.getTotalFilledLetters() <= 64, 
             "Total filled letters should not exceed 8x8 board size");
     }
+    
+    @Test
+    public void testGreekDictionaryIsUsed() {
+        // Verify that the Greek dictionary can be loaded and used
+        Dictionary greekDictionary = new Dictionary("el-dictionary.txt", 5);
+        assertNotNull(greekDictionary, 
+            "Greek dictionary should not be null");
+        assertNotNull(greekDictionary.getBoardWords(), 
+            "Greek dictionary should generate board words");
+        assertFalse(greekDictionary.getBoardWords().isEmpty(), 
+            "Greek dictionary should generate non-empty board words");
+    }
+    
+    @Test
+    public void testGreekDictionaryNoDiacritics() {
+        // Verify that board words from Greek dictionary have no diacritics
+        Dictionary greekDictionary = new Dictionary("el-dictionary.txt", 5);
+        ArrayList<String> boardWords = greekDictionary.getBoardWords();
+        
+        // Greek vowels with tonos (diacritics) - both lowercase and uppercase
+        String diacritics = "άέήίόύώΆΈΉΊΌΎΏ";
+        
+        for (String word : boardWords) {
+            for (char c : word.toCharArray()) {
+                assertFalse(diacritics.indexOf(c) >= 0, 
+                    "Word '" + word + "' should not contain diacritics. Found: " + c);
+            }
+        }
+    }
+    
+    @Test
+    public void testGreekDictionaryWordsAreGreek() {
+        // Verify that words from Greek dictionary are in Greek alphabet
+        Dictionary greekDictionary = new Dictionary("el-dictionary.txt", 5);
+        ArrayList<String> boardWords = greekDictionary.getBoardWords();
+        
+        // Greek uppercase alphabet (without diacritics)
+        String greekAlphabet = "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ";
+        
+        for (String word : boardWords) {
+            for (char c : word.toCharArray()) {
+                assertTrue(greekAlphabet.indexOf(c) >= 0, 
+                    "Word '" + word + "' contains non-Greek character: " + c);
+            }
+        }
+    }
 }

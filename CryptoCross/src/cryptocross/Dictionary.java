@@ -177,16 +177,20 @@ public class Dictionary {
     }
     
     /*
-     *  Method to capitalize a whole word.
+     *  Method to capitalize a whole word and normalize Greek diacritics.
      *  @param word The word we want to capitalize.
-     *  @return The word fully capitalized.
+     *  @return The word fully capitalized without diacritics.
+     *  
+     *  Note: The el-dictionary.txt file has been pre-normalized to remove
+     *  diacritics, making most of this processing redundant. However, this
+     *  normalization is kept as a safety measure for edge cases and to ensure
+     *  consistent behavior regardless of the dictionary source.
      */
     private String Capitalize(String word) {
-        // Concert all chars to uppercase
+        // Convert all chars to uppercase
         word = word.toUpperCase();
-        // replace every occurrence of toned char
-        // in the Greek Alphabet and replace it
-        // with the non-toned version.
+        // Replace every occurrence of toned char
+        // in the Greek Alphabet with the non-toned version.
         word = word.replaceAll("[Ά]", "Α");
         word = word.replaceAll("[Έ]", "Ε");
         word = word.replaceAll("[Ή]", "Η");
