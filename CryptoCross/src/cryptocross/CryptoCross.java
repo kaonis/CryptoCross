@@ -18,32 +18,57 @@ import javax.swing.*;
 import javax.swing.UIManager.*;
 import javax.swing.border.BevelBorder;
 
+/**
+ * Main GUI application class for the CryptoCross word game.
+ * Extends JFrame to provide the graphical user interface and implements
+ * ActionListener to handle user interactions.
+ * 
+ * The game allows players to form words from letters on a board, with
+ * colored letters providing point multipliers. Players have access to
+ * various help actions like deleting rows, reordering, and swapping letters.
+ */
 public class CryptoCross extends JFrame implements ActionListener {
 
     private JFrame thisFrame;
-    private Letter[][] ar_letters; //board letter array
-    private Player player; //Player object for the player
-    private Board gameBoard; //Board object for the game board
+    /** 2D array of letters representing the game board */
+    private Letter[][] ar_letters;
+    /** Player object tracking the current player's state */
+    private Player player;
+    /** Board object managing the game board state */
+    private Board gameBoard;
+    /** Helper to validate letter selection for word formation */
     private WordPilot wordPilot;
-    private Integer int_maxAllowedWords; //The max number of words the player is
-    //allowed to complete
-    private Integer int_goalPoints; //The target/goal number of points to be attained
-    //by the player.
+    /** Maximum number of words the player is allowed to complete */
+    private Integer int_maxAllowedWords;
+    /** Target/goal number of points to be attained by the player */
+    private Integer int_goalPoints;
+    /** Points accumulated for the current word being formed */
     private Integer int_currentWordPoints;
+    /** List of letters in the current word being formed */
     private ArrayList<Letter> currentWord;
 
-    //Total allowed helps
+    // Total allowed help actions
+    /** Total allowed delete row actions */
     private Integer int_TotalDeleteRow = 3;
+    /** Total allowed reorder row actions */
     private Integer int_TotalReorderRow = 3;
+    /** Total allowed reorder column actions */
     private Integer int_TotalReorderColumn = 3;
+    /** Total allowed reorder board actions */
     private Integer int_TotalReorderBoard = 5;
+    /** Total allowed swap letter actions */
     private Integer int_TotalSwapLetter = 6;
 
-    //Number of used helps
+    // Number of used help actions
+    /** Number of delete row actions used */
     private Integer int_UsedDeleteRow;
+    /** Number of reorder row actions used */
     private Integer int_UsedReorderRow;
+    /** Number of reorder column actions used */
     private Integer int_UsedReorderColumn;
+    /** Number of reorder board actions used */
     private Integer int_UsedReorderBoard;
+    /** Number of swap letter actions used */
     private Integer int_UsedSwapLetter;
 
     private Container contentPane;

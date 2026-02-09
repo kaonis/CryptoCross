@@ -10,24 +10,43 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-//Class for the game board
+/**
+ * Represents the game board for CryptoCross.
+ * Manages the board layout, letter placement, colored letter distribution,
+ * and provides operations for board manipulation.
+ */
 public class Board implements BoardInterface {
 
+    /** The length (dimension) of the square board */
     private Integer boardLength;
+    /** 2D array storing the letters on the board */
     private Letter[][] boardArray;
+    /** Dictionary used for word validation and board generation */
     private Dictionary dict;
+    /** Secure random number generator for randomization */
     private SecureRandom random;
+    /** Number of words initially placed on the board */
     private Integer wordsNum;
 
+    /** X coordinates of colored letters */
     private int coloredX[];
+    /** Y coordinates of colored letters */
     private int coloredY[];
+    /** Total count of colored letters on the board */
     private int coloredLettersCount;
 
-    private int redCount = 0, blueCount = 0, balCount = 0;
+    /** Count of red letters to place */
+    private int redCount = 0;
+    /** Count of blue letters to place */
+    private int blueCount = 0;
+    /** Count of balandeur letters to place */
+    private int balCount = 0;
 
-    /*
-     * Constuctor.
-     * @param boardLength The length of the board
+    /**
+     * Constructs a new Board with the specified dimensions.
+     * Initializes the board array, dictionary, and generates the initial board layout.
+     * @param boardLength the length (dimension) of the square board
+     * @throws UknownCharacterException if an unknown character is encountered during board generation
      */
     public Board(Integer boardLength) throws UknownCharacterException {
         this.boardLength = boardLength;
@@ -41,9 +60,12 @@ public class Board implements BoardInterface {
         generateBoard();
     }
 
-    /*
-     * Method to generate a new board based on boardLength.
-     * @return nothing.
+    /**
+     * Generates a new board layout based on board length.
+     * Determines the number of colored letters based on board size,
+     * places dictionary words, fills remaining spaces with random characters,
+     * and shuffles the board using Fisher-Yates algorithm.
+     * @throws UknownCharacterException if an unknown character is encountered
      */
     private void generateBoard() throws UknownCharacterException {
 
@@ -106,7 +128,11 @@ public class Board implements BoardInterface {
         show();
     }
 
-    /* Fisher- Yates Shuffle */
+    /**
+     * Shuffles the board using the Fisher-Yates algorithm.
+     * Updates letter coordinates after each swap to maintain consistency.
+     * @param a the 2D array of letters to shuffle
+     */
     private void shuffle(Letter[][] a) {
 
         for (int i = a.length - 1; i > 0; i--) {
@@ -125,12 +151,15 @@ public class Board implements BoardInterface {
         }
     }
 
-    /*
-     * Method to decide color for a letter
-     * @param x letter's row on board.
-     * @param y letter's column on board.
-     * @param c the character for which we decide the color.
-     * @return Letter.
+    /**
+     * Determines the color for a letter at the specified position.
+     * Colored positions receive red, blue, or balandeur letters in that priority order.
+     * Non-colored positions receive white letters.
+     * @param x the row index of the letter
+     * @param y the column index of the letter
+     * @param c the character for which to decide the color
+     * @return a Letter object with the appropriate color
+     * @throws UknownCharacterException if the character is not recognized
      */
     private Letter decideColor(int x, int y, char c) throws UknownCharacterException {
         if (isColored(x, y)) {
@@ -148,9 +177,11 @@ public class Board implements BoardInterface {
         return new WhiteLetter(c);
     }
 
-    /*
-     * Method to return if a letter is colord.
-     * @return true if colored or false for the opposite.
+    /**
+     * Checks if a letter at the specified position should be colored.
+     * @param x the row index to check
+     * @param y the column index to check
+     * @return true if the position is designated for a colored letter, false otherwise
      */
     private Boolean isColored(int x, int y) {
         for (int i = 0; i < coloredLettersCount; i++) {
@@ -161,10 +192,11 @@ public class Board implements BoardInterface {
         return false;
     }
 
-    /*
-     * Method to generate a new random array.
-     * @param size The size of the array.
-     * @return Array of Integers.
+    /**
+     * Generates a random array of unique integers within the board dimensions.
+     * Each element is unique and within the range [0, boardLength-1].
+     * @param size the size of the array to generate
+     * @return an array of random unique integers
      */
     private int[] randomArrayGen(Integer size) {
 
@@ -183,11 +215,11 @@ public class Board implements BoardInterface {
         return result;
     }
 
-    /*
-     * Method to find if a certain number exists in an array.
-     * @param number The number to find.
-     * @param array The array.
-     * @return True if exists or false if the opposite.
+    /**
+     * Checks if a number exists in an array.
+     * @param number the number to search for
+     * @param array the array to search in
+     * @return true if the number exists in the array, false otherwise
      */
     private Boolean existInArray(int number, int[] array) {
 
@@ -200,24 +232,33 @@ public class Board implements BoardInterface {
         return false;
     }
 
-    /*
-     * Getters.
+    /**
+     * Gets the 2D array representing the game board.
+     * @return the board array
      */
     public Letter[][] getBoardArray() {
         return boardArray;
     }
 
+    /**
+     * Gets the length (dimension) of the board.
+     * @return the board length
+     */
     public Integer getBoardLength() {
         return boardLength;
     }
 
+    /**
+     * Gets the number of words initially placed on the board.
+     * @return the word count
+     */
     public Integer getWordsNum() {
         return wordsNum;
     }
 
-    /*
-     * Method to generate a new random (Hellenic) character.
-     * @return The character
+    /**
+     * Generates a random Greek (Hellenic) character.
+     * @return a random character from the Greek alphabet
      */
     private Character getRandomChar() {
         final String alphabet = "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ";
@@ -226,9 +267,9 @@ public class Board implements BoardInterface {
         return alphabet.charAt(random.nextInt(N));
     }
 
-    /*
-     * Debug method to print the array.
-     * @return nothing.
+    /**
+     * Debug method to print the current board state to console.
+     * Displays the board in a grid format with letter characters.
      */
     public void show() {
         System.out.println("------------------------");
@@ -241,7 +282,11 @@ public class Board implements BoardInterface {
         System.out.println("------------------------");
     }
 
-    //Delete a row of the game board
+    /**
+     * Deletes a row of the game board by replacing all letters with random characters.
+     * Invalid row indices are ignored.
+     * @param int_row the index of the row to delete
+     */
     @Override
     public void deleteRow(Integer int_row) {
         if (int_row == null || int_row < 0 || int_row >= boardLength) {
@@ -261,7 +306,11 @@ public class Board implements BoardInterface {
         }
     }
 
-    //Reorder a row of the game board
+    /**
+     * Reorders (shuffles) a row of the game board using Fisher-Yates algorithm.
+     * Updates letter coordinates after shuffling. Invalid row indices are ignored.
+     * @param int_row the index of the row to reorder
+     */
     @Override
     public void reorderRow(Integer int_row) {
         if (int_row == null || int_row < 0 || int_row >= boardLength) {
@@ -283,7 +332,11 @@ public class Board implements BoardInterface {
         }
     }
 
-    //Reorder a column of the game board
+    /**
+     * Reorders (shuffles) a column of the game board using Fisher-Yates algorithm.
+     * Updates letter coordinates after shuffling. Invalid column indices are ignored.
+     * @param int_column the index of the column to reorder
+     */
     @Override
     public void reorderColumn(Integer int_column) {
         if (int_column == null || int_column < 0 || int_column >= boardLength) {
@@ -305,13 +358,20 @@ public class Board implements BoardInterface {
         }
     }
 
-    //Reorder the game board
+    /**
+     * Reorders (shuffles) the entire game board using Fisher-Yates algorithm.
+     */
     @Override
     public void reorderBoard() {
         shuffle(boardArray);
     }
 
-    //Swap 2 Letters
+    /**
+     * Swaps two letters on the board.
+     * Updates their coordinates after swapping. Invalid letters or coordinates are ignored.
+     * @param letter1 the first letter to swap
+     * @param letter2 the second letter to swap
+     */
     @Override
     public void swapLetters(Letter letter1, Letter letter2) {
         if (letter1 == null || letter2 == null) {
@@ -338,7 +398,12 @@ public class Board implements BoardInterface {
         letter2.setCoords(x1, y1);
     }
     
-    //Check if a word exists in the dictionary
+    /**
+     * Checks if a word exists in the dictionary.
+     * Builds a string from the letters and validates against the dictionary.
+     * @param word an ArrayList of Letter objects forming the word to check
+     * @return true if the word is valid, false otherwise
+     */
     @Override
     public Boolean checkWordValidity(ArrayList<Letter> word) {
         if (word == null || word.isEmpty()) {
