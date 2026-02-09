@@ -1,21 +1,22 @@
 package cryptocross;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Unit tests for the Dictionary class.
  */
 public class DictionaryTest {
     
-    private Dictionary dictionary;
+    private static Dictionary dictionary;
     
-    @BeforeEach
-    public void setUp() {
-        // Using the default dictionary file with board length 5
-        dictionary = new Dictionary("el-dictionary.txt", 5);
+    @BeforeAll
+    public static void setUp() {
+        // Using a small test dictionary file for fast, deterministic tests
+        dictionary = new Dictionary("test-dictionary.txt", 5);
     }
     
     @Test
@@ -55,7 +56,7 @@ public class DictionaryTest {
     public void testBoardWordsAreCapitalized() {
         ArrayList<String> boardWords = dictionary.getBoardWords();
         for (String word : boardWords) {
-            assertEquals(word, word.toUpperCase(), 
+            assertEquals(word, word.toUpperCase(Locale.ROOT), 
                 "All board words should be in uppercase");
         }
     }
@@ -73,11 +74,12 @@ public class DictionaryTest {
     public void testContainsWord() {
         // Get one of the board words
         ArrayList<String> boardWords = dictionary.getBoardWords();
-        if (!boardWords.isEmpty()) {
-            String testWord = boardWords.get(0);
-            assertTrue(dictionary.containsWord(testWord), 
-                "Dictionary should contain words from the board");
-        }
+        assertFalse(boardWords.isEmpty(), 
+            "Board words should not be empty for this test");
+        
+        String testWord = boardWords.get(0);
+        assertTrue(dictionary.containsWord(testWord), 
+            "Dictionary should contain words from the board");
     }
     
     @Test
@@ -89,7 +91,7 @@ public class DictionaryTest {
     
     @Test
     public void testLargerBoardSize() {
-        Dictionary largeDictionary = new Dictionary("el-dictionary.txt", 8);
+        Dictionary largeDictionary = new Dictionary("test-dictionary.txt", 8);
         assertNotNull(largeDictionary.getBoardWords(), 
             "Board words should be generated for 8x8 board");
         assertTrue(largeDictionary.getTotalFilledLetters() > 0, 

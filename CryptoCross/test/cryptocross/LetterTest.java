@@ -98,7 +98,7 @@ public class LetterTest {
         String str = letter.toString();
         assertTrue(str.contains("Α"), 
             "toString should contain the character");
-        assertTrue(str.contains("1"), 
-            "toString should contain the points");
+        assertTrue(str.contains("Points: 1"), 
+            "toString should contain the points in the 'Points: 1' format");
     }
 }

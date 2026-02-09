@@ -70,4 +70,15 @@
     nbproject/build-impl.xml file. 
 
     -->
+    
+    <!-- Custom target to run JUnit 5 tests using JUnit Platform Console -->
+    <target name="run-junit5-tests" depends="compile-test" description="Run JUnit 5 tests">
+        <java jar="lib/junit-platform-console-standalone-1.10.1.jar" fork="true" failonerror="true">
+            <arg value="--class-path"/>
+            <arg value="build/classes${path.separator}build/test/classes"/>
+            <arg value="--scan-class-path"/>
+            <arg value="--fail-if-no-tests"/>
+        </java>
+    </target>
+    
 </project>

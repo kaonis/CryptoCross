@@ -17,6 +17,10 @@ java -jar dist/CryptoCross.jar
 ## Testing
 ```bash
 cd CryptoCross
+# Cross-platform way using Ant
+ant run-junit5-tests
+
+# Or manually (use ; instead of : on Windows)
 ant compile-test
 java -jar lib/junit-platform-console-standalone-1.10.1.jar --class-path build/classes:build/test/classes --scan-class-path
 ```
