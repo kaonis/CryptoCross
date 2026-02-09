@@ -70,6 +70,14 @@ public class CryptoCross extends JFrame implements ActionListener {
     private Integer int_UsedReorderBoard;
     /** Number of swap letter actions used */
     private Integer int_UsedSwapLetter;
+    
+    // Swap letters mode tracking
+    /** Flag indicating if swap letters mode is active */
+    private Boolean tf_swapMode = false;
+    /** First letter selected for swapping */
+    private Letter swapLetter1 = null;
+    /** Second letter selected for swapping */
+    private Letter swapLetter2 = null;
 
     private Container contentPane;
     //JPanels
@@ -228,20 +236,23 @@ public class CryptoCross extends JFrame implements ActionListener {
         lb_deleteRow.setText(int_UsedDeleteRow + "/" + int_TotalDeleteRow);
         lb_reorderRow.setText(int_UsedReorderRow + "/" + int_TotalReorderRow);
         lb_reorderColumn.setText(int_UsedReorderColumn + "/" + int_TotalReorderColumn);
+        lb_reorderBoard.setText(int_UsedReorderBoard + "/" + int_TotalReorderBoard);
+        lb_swapLetters.setText(int_UsedSwapLetter + "/" + int_TotalSwapLetter);
         
-        if (int_UsedDeleteRow == int_TotalDeleteRow) {
+        if (int_UsedDeleteRow >= int_TotalDeleteRow) {
             btn_deleteRow.setEnabled(false);
-            tf_deleteRow.setEnabled(false);
         }
-        if (int_UsedReorderRow == int_TotalReorderRow) {
+        if (int_UsedReorderRow >= int_TotalReorderRow) {
             btn_reorderRow.setEnabled(false);
-            tf_reorderRow.setEnabled(false);
-            lb_reorderRow.setEnabled(false);
         }
-        if (int_UsedReorderColumn == int_TotalReorderColumn) {
+        if (int_UsedReorderColumn >= int_TotalReorderColumn) {
             btn_reorderColumn.setEnabled(false);
-            tf_reorderColumn.setEnabled(false);
-            lb_reorderColumn.setEnabled(false);
+        }
+        if (int_UsedReorderBoard >= int_TotalReorderBoard) {
+            btn_reorderBoard.setEnabled(false);
+        }
+        if (int_UsedSwapLetter >= int_TotalSwapLetter) {
+            btn_swapLetters.setEnabled(false);
         }
     }
 
@@ -386,21 +397,18 @@ public class CryptoCross extends JFrame implements ActionListener {
 
         //Right Row1
         row1Panel.add(btn_deleteRow, BorderLayout.LINE_START);
-        row1Panel.add(tf_deleteRow, BorderLayout.CENTER);
         row1Panel.add(lb_deleteRow, BorderLayout.LINE_END);
 
         rightPanel.add(row1Panel);
 
         //Right Row2
         row2Panel.add(btn_reorderRow, BorderLayout.LINE_START);
-        row2Panel.add(tf_reorderRow, BorderLayout.CENTER);
         row2Panel.add(lb_reorderRow, BorderLayout.LINE_END);
 
         rightPanel.add(row2Panel);
 
         //Right Row3
         row3Panel.add(btn_reorderColumn, BorderLayout.LINE_START);
-        row3Panel.add(tf_reorderColumn, BorderLayout.CENTER);
         row3Panel.add(lb_reorderColumn, BorderLayout.LINE_END);
 
         rightPanel.add(row3Panel);
@@ -542,7 +550,41 @@ public class CryptoCross extends JFrame implements ActionListener {
 
                 btnArray_letter[i][j].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        if (((JButton) e.getSource()).getBackground().equals(Color.YELLOW)) {
+                        if (tf_swapMode) {
+                            // Swap letters mode
+                            if (swapLetter1 == null) {
+                                // First letter selected
+                                swapLetter1 = tempLetter;
+                                ((JButton) e.getSource()).setBackground(Color.CYAN);
+                                lb_foundAword.setText("Επιλέξτε το δεύτερο γράμμα");
+                            } else if (swapLetter2 == null && tempLetter != swapLetter1) {
+                                // Second letter selected
+                                swapLetter2 = tempLetter;
+                                
+                                // Perform the swap
+                                gameBoard.swapLetters(swapLetter1, swapLetter2);
+                                
+                                // Update counters
+                                int_UsedSwapLetter++;
+                                checkHelps();
+                                
+                                // Exit swap mode
+                                tf_swapMode = false;
+                                swapLetter1 = null;
+                                swapLetter2 = null;
+                                
+                                // Refresh the board
+                                refreshBoard();
+                                lb_foundAword.setText("Εναλλαγή ολοκληρώθηκε!");
+                            } else if (tempLetter == swapLetter1) {
+                                // Cancel swap mode if clicking the same letter
+                                tf_swapMode = false;
+                                swapLetter1 = null;
+                                swapLetter2 = null;
+                                refreshBoard();
+                                lb_foundAword.setText("Εναλλαγή ακυρώθηκε");
+                            }
+                        } else if (((JButton) e.getSource()).getBackground().equals(Color.YELLOW)) {
                             // Deselect letter
                             ((JButton) e.getSource()).setBackground(tempColor);
                             currentWord.remove(tempLetter);
@@ -756,23 +798,92 @@ public class CryptoCross extends JFrame implements ActionListener {
 
         } else if (e.getSource() == btn_deleteRow) {
             if (int_TotalDeleteRow - int_UsedDeleteRow > 0) {
-                gameBoard.deleteRow(Integer.parseInt(tf_deleteRow.getText()));
-                int_UsedDeleteRow++;
-                checkHelps(); //Checks if allowed num of times is reached and grays out accordingly
+                String input = JOptionPane.showInputDialog(thisFrame,
+                        "Εισάγετε αριθμό γραμμής (0-" + (gameBoard.getBoardLength() - 1) + "):",
+                        "Διαγραφή Γραμμής",
+                        JOptionPane.QUESTION_MESSAGE);
+                
+                if (input != null && !input.trim().isEmpty()) {
+                    try {
+                        int row = Integer.parseInt(input.trim());
+                        if (row >= 0 && row < gameBoard.getBoardLength()) {
+                            gameBoard.deleteRow(row);
+                            int_UsedDeleteRow++;
+                            checkHelps();
+                            refreshBoard();
+                        } else {
+                            JOptionPane.showMessageDialog(thisFrame,
+                                    "Μη έγκυρος αριθμός γραμμής!",
+                                    "Σφάλμα",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(thisFrame,
+                                "Παρακαλώ εισάγετε έναν έγκυρο αριθμό!",
+                                "Σφάλμα",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
 
         } else if (e.getSource() == btn_reorderRow) {
             if (int_TotalReorderRow - int_UsedReorderRow > 0) {
-                gameBoard.reorderRow(Integer.parseInt(tf_reorderRow.getText()));
-                int_UsedReorderRow++;
-                checkHelps();
+                String input = JOptionPane.showInputDialog(thisFrame,
+                        "Εισάγετε αριθμό γραμμής (0-" + (gameBoard.getBoardLength() - 1) + "):",
+                        "Αναδιάταξη Γραμμής",
+                        JOptionPane.QUESTION_MESSAGE);
+                
+                if (input != null && !input.trim().isEmpty()) {
+                    try {
+                        int row = Integer.parseInt(input.trim());
+                        if (row >= 0 && row < gameBoard.getBoardLength()) {
+                            gameBoard.reorderRow(row);
+                            int_UsedReorderRow++;
+                            checkHelps();
+                            refreshBoard();
+                        } else {
+                            JOptionPane.showMessageDialog(thisFrame,
+                                    "Μη έγκυρος αριθμός γραμμής!",
+                                    "Σφάλμα",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(thisFrame,
+                                "Παρακαλώ εισάγετε έναν έγκυρο αριθμό!",
+                                "Σφάλμα",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
 
         } else if (e.getSource() == btn_reorderColumn) {
             if (int_TotalReorderColumn - int_UsedReorderColumn > 0) {
-                gameBoard.reorderColumn(Integer.parseInt(tf_reorderColumn.getText()));
-                int_UsedReorderColumn++;
-                checkHelps();
+                String input = JOptionPane.showInputDialog(thisFrame,
+                        "Εισάγετε αριθμό στήλης (0-" + (gameBoard.getBoardLength() - 1) + "):",
+                        "Αναδιάταξη Στήλης",
+                        JOptionPane.QUESTION_MESSAGE);
+                
+                if (input != null && !input.trim().isEmpty()) {
+                    try {
+                        int column = Integer.parseInt(input.trim());
+                        if (column >= 0 && column < gameBoard.getBoardLength()) {
+                            gameBoard.reorderColumn(column);
+                            int_UsedReorderColumn++;
+                            checkHelps();
+                            refreshBoard();
+                        } else {
+                            JOptionPane.showMessageDialog(thisFrame,
+                                    "Μη έγκυρος αριθμός στήλης!",
+                                    "Σφάλμα",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(thisFrame,
+                                "Παρακαλώ εισάγετε έναν έγκυρο αριθμό!",
+                                "Σφάλμα",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
 
         } else if (e.getSource() == btn_reorderBoard) {
@@ -785,8 +896,11 @@ public class CryptoCross extends JFrame implements ActionListener {
 
         } else if (e.getSource() == btn_swapLetters) {
             if (int_TotalSwapLetter - int_UsedSwapLetter > 0) {
-                int_UsedSwapLetter++;
-                checkHelps();
+                // Enable swap mode - user needs to select two letters
+                tf_swapMode = true;
+                swapLetter1 = null;
+                swapLetter2 = null;
+                lb_foundAword.setText("Επιλέξτε δύο γράμματα για εναλλαγή");
             }
         }
     }
@@ -832,6 +946,54 @@ public class CryptoCross extends JFrame implements ActionListener {
             for (int j = 0; j < gameBoard.getBoardLength(); j++) {
                 Color tempColor = ar_letters[i][j].getColor();
                 btnArray_letter[i][j].setBackground(tempColor);
+                
+                // Update button text/icon for the letter
+                Character letterChar = ar_letters[i][j].getLetterChar();
+                String str_letterBtnTxt = Character.toString(letterChar);
+                
+                // Clear existing icon
+                btnArray_letter[i][j].setIcon(null);
+                
+                // Set icon if image exists, otherwise use text
+                try {
+                    if (letterChar == 'Α') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Α.png"))));
+                    } else if (letterChar == 'Β') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Β.png"))));
+                    } else if (letterChar == 'Γ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Γ.png"))));
+                    } else if (letterChar == 'Δ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Δ.png"))));
+                    } else if (letterChar == 'Ε') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ε.png"))));
+                    } else if (letterChar == 'Ζ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Ζ.png"))));
+                    } else if (letterChar == 'Η') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Η.png"))));
+                    } else if (letterChar == 'Θ') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Θ.png"))));
+                    } else if (letterChar == '?') {
+                        btnArray_letter[i][j].setIcon(new ImageIcon(
+                                ImageIO.read(getClass().getResource("/images/Balandeur.png"))));
+                    }
+                } catch (IOException ex) {
+                    // If icon fails to load, will use text instead
+                }
+                
+                // Use text if no icon was set
+                if (btnArray_letter[i][j].getIcon() == null) {
+                    btnArray_letter[i][j].setText(str_letterBtnTxt);
+                } else {
+                    btnArray_letter[i][j].setText("");
+                }
             }
         }
     }
