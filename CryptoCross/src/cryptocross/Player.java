@@ -5,56 +5,87 @@
  */
 package cryptocross;
 
-//Class for the player
+/**
+ * Represents a player in the CryptoCross game.
+ * Tracks the player's name, score, and number of words completed.
+ */
 public class Player implements PlayerInterface {
 
-    private String str_playerName; //The players name
+    /** The player's name */
+    private String str_playerName;
     
-    private Integer int_playerScore; //The current total number of points the 
-    //player has collected
+    /** The current total number of points the player has collected */
+    private Integer int_playerScore;
 
-    private Integer int_wordsCompleted; //The number of words the player has
-    //completed
+    /** The number of words the player has completed */
+    private Integer int_wordsCompleted;
 
-    //Constructor
+    /**
+     * Constructs a new Player with initial values.
+     * Score and words completed are initialized to 0.
+     */
     public Player() {
-        //Starting values, initialization
         this.int_playerScore = 0;
         this.int_wordsCompleted = 0;
     }
 
-    //Getters
+    /**
+     * Gets the player's name.
+     * @return the player's name
+     */
     @Override
     public String getPlayerName() {
         return str_playerName;
     }
     
+    /**
+     * Gets the player's current score.
+     * @return the player's score
+     */
     @Override
     public Integer getPlayerScore() {
         return int_playerScore;
     }
 
+    /**
+     * Gets the number of words the player has completed.
+     * @return the count of completed words
+     */
     @Override
     public Integer getCompletedWordsNum() {
         return int_wordsCompleted;
     }
     
-    //Setters
+    /**
+     * Sets the player's name.
+     * @param str_playerName the name to set
+     */
     @Override
     public void setPlayerName(String str_playerName) {
         this.str_playerName = str_playerName;
     }
     
+    /**
+     * Sets the player's score.
+     * @param int_playerScore the score to set
+     */
     @Override
     public void setPlayerScore(Integer int_playerScore) {
         this.int_playerScore = int_playerScore;
     }
     
+    /**
+     * Sets the number of words the player has completed.
+     * @param int_wordsCompleted the count to set
+     */
     @Override
     public void setCompletedWordsNum(Integer int_wordsCompleted) {
         this.int_wordsCompleted = int_wordsCompleted;
     }
     
+    /**
+     * Increments the player's completed word count by one.
+     */
     @Override
     public void playerCompletedAWord() {
         this.int_wordsCompleted++;
