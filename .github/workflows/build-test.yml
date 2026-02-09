@@ -52,11 +52,3 @@ jobs:
         name: cryptocross-jar
         path: CryptoCross/dist/CryptoCross.jar
         retention-days: 7
-    
-    - name: Upload test results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-results
-        path: CryptoCross/build/test/results/
-        retention-days: 7
