@@ -244,19 +244,65 @@ public class Board implements BoardInterface {
     //Delete a row of the game board
     @Override
     public void deleteRow(Integer int_row) {
-
+        if (int_row == null || int_row < 0 || int_row >= boardLength) {
+            return; // Invalid row index
+        }
+        
+        // Fill the specified row with random characters
+        for (int j = 0; j < boardLength; j++) {
+            Character c = getRandomChar();
+            try {
+                Letter let = new WhiteLetter(c);
+                let.setCoords(int_row, j);
+                boardArray[int_row][j] = let;
+            } catch (UknownCharacterException e) {
+                // Should not happen with Greek alphabet
+            }
+        }
     }
 
     //Reorder a row of the game board
     @Override
     public void reorderRow(Integer int_row) {
-
+        if (int_row == null || int_row < 0 || int_row >= boardLength) {
+            return; // Invalid row index
+        }
+        
+        // Shuffle the letters in the specified row using Fisher-Yates algorithm
+        for (int j = boardLength - 1; j > 0; j--) {
+            int randomIndex = random.nextInt(j + 1);
+            
+            // Swap letters at positions j and randomIndex
+            Letter temp = boardArray[int_row][j];
+            boardArray[int_row][j] = boardArray[int_row][randomIndex];
+            boardArray[int_row][randomIndex] = temp;
+            
+            // Update coordinates after swap
+            boardArray[int_row][j].setCoords(int_row, j);
+            boardArray[int_row][randomIndex].setCoords(int_row, randomIndex);
+        }
     }
 
     //Reorder a column of the game board
     @Override
     public void reorderColumn(Integer int_column) {
-
+        if (int_column == null || int_column < 0 || int_column >= boardLength) {
+            return; // Invalid column index
+        }
+        
+        // Shuffle the letters in the specified column using Fisher-Yates algorithm
+        for (int i = boardLength - 1; i > 0; i--) {
+            int randomIndex = random.nextInt(i + 1);
+            
+            // Swap letters at positions i and randomIndex
+            Letter temp = boardArray[i][int_column];
+            boardArray[i][int_column] = boardArray[randomIndex][int_column];
+            boardArray[randomIndex][int_column] = temp;
+            
+            // Update coordinates after swap
+            boardArray[i][int_column].setCoords(i, int_column);
+            boardArray[randomIndex][int_column].setCoords(randomIndex, int_column);
+        }
     }
 
     //Reorder the game board
@@ -268,7 +314,28 @@ public class Board implements BoardInterface {
     //Swap 2 Letters
     @Override
     public void swapLetters(Letter letter1, Letter letter2) {
-
+        if (letter1 == null || letter2 == null) {
+            return; // Invalid letters
+        }
+        
+        Integer x1 = letter1.getXcoord();
+        Integer y1 = letter1.getYcoord();
+        Integer x2 = letter2.getXcoord();
+        Integer y2 = letter2.getYcoord();
+        
+        if (x1 == null || y1 == null || x2 == null || y2 == null ||
+            x1 < 0 || x1 >= boardLength || y1 < 0 || y1 >= boardLength ||
+            x2 < 0 || x2 >= boardLength || y2 < 0 || y2 >= boardLength) {
+            return; // Invalid coordinates
+        }
+        
+        // Swap the letters in the board array
+        boardArray[x1][y1] = letter2;
+        boardArray[x2][y2] = letter1;
+        
+        // Update coordinates
+        letter1.setCoords(x2, y2);
+        letter2.setCoords(x1, y1);
     }
     
     //Check if a word exists in the dictionary
