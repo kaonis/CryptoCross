@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #105 - Add script to summarize merges from today's roadmap changelog entries
+- PR: #109
+- Summary:
+  - added `scripts/summarize_daily_merges.sh` for compact daily roadmap merge summaries
+  - script defaults to current date and supports optional `YYYY-MM-DD` override
+  - documented usage in `README.md`
+- Validation:
+  - ./scripts/summarize_daily_merges.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: script relies on current roadmap changelog heading format
+
 ## 2026-02-15 - #106 - Add PR template checklist that links related roadmap/issue IDs
 - PR: #108
 - Summary:
