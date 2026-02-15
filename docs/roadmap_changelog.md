@@ -3,6 +3,17 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #103 - Create roadmap_v11 after v10 completion
+- PR: #107
+- Summary:
+  - added `docs/roadmap_v11.md` with v10 completion summary and v11 priorities
+  - marked all v10 priorities complete in `docs/roadmap_v10.md`
+  - updated `docs/roadmap_index.md` to mark v10 completed and v11 active
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: roadmap state accuracy depends on continuing to update index/checklists each cycle
+
 ## 2026-02-15 - #98 - Add strict-mode persistence smoke-test notes
 - PR: #102
 - Summary:
