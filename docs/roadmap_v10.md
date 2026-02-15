@@ -11,9 +11,9 @@
 - Validation baseline remains green locally (`ant clean run-junit5-tests`, `ant clean jar`).
 
 ## v10 Priorities
-- [ ] #95 Add docs index for roadmap versions and completion state.
-- [ ] #97 Add one-command script for targeted strict-mode checks.
-- [ ] #98 Add strict-mode persistence smoke-test notes.
+- [x] #95 Add docs index for roadmap versions and completion state.
+- [x] #97 Add one-command script for targeted strict-mode checks.
+- [x] #98 Add strict-mode persistence smoke-test notes.
 
 ## v10 Success Criteria
 - Roadmap versions are quickly navigable from a single index doc.
