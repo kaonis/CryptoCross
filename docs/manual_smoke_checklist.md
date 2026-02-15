@@ -3,6 +3,8 @@
 ## Scope
 Use this checklist before merging gameplay-impacting changes or creating a release build.
 The goal is to quickly verify that core gameplay behavior still works end-to-end.
+For strict-mode persistence specific coverage, also run:
+- `docs/strict_mode_persistence_smoke_notes.md`
 
 ## Preconditions
 - Run from `/Users/phantom/projects/CryptoCross/CryptoCross`.
