@@ -80,6 +80,7 @@ public class ResourceBundleTest {
     public void testGameplayStatusKeysExist() {
         ResourceBundle messages = ResourceBundle.getBundle("cryptocross.CryptoCrossMessages");
         String[] requiredKeys = {
+            "label.strict.selection.mode",
             "status.swap.select.second",
             "status.swap.completed",
             "status.swap.cancelled",

@@ -157,6 +157,7 @@ public class CryptoCross extends JFrame implements ActionListener {
     private JLabel lb1_wordsFound;
     private JLabel lb2_wordsFound;
     private JLabel lb_foundAword;
+    private JCheckBox cb_strictSelectionMode;
 
     //Constructor
     public CryptoCross() {
@@ -400,6 +401,10 @@ public class CryptoCross extends JFrame implements ActionListener {
         lb1_wordsFound = new JLabel("Λέξεις που βρέθηκαν:");
         lb2_wordsFound = new JLabel(player.getCompletedWordsNum() + "/" + int_maxAllowedWords);
         lb_foundAword = new JLabel("");
+        cb_strictSelectionMode = new JCheckBox(messages.getString("label.strict.selection.mode"));
+        cb_strictSelectionMode.setSelected(false);
+        cb_strictSelectionMode.addActionListener(evt ->
+                setStrictSelectionMode(cb_strictSelectionMode.isSelected()));
 
         row1Panel = new JPanel(new BorderLayout());
         row2Panel = new JPanel(new BorderLayout());
@@ -468,6 +473,7 @@ public class CryptoCross extends JFrame implements ActionListener {
 
         //Right Row10
         row10Panel.add(lb_foundAword, BorderLayout.LINE_START);
+        row10Panel.add(cb_strictSelectionMode, BorderLayout.LINE_END);
 
         rightPanel.add(row10Panel);
 
@@ -1120,6 +1126,9 @@ public class CryptoCross extends JFrame implements ActionListener {
         btn_reorderColumn.setEnabled(false);
         btn_reorderBoard.setEnabled(false);
         btn_swapLetters.setEnabled(false);
+        if (cb_strictSelectionMode != null) {
+            cb_strictSelectionMode.setEnabled(false);
+        }
         
         for (int i = 0; i < gameBoard.getBoardLength(); i++) {
             for (int j = 0; j < gameBoard.getBoardLength(); j++) {
