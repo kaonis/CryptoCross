@@ -16,6 +16,8 @@ import java.util.List;
  * and provides operations for board manipulation.
  */
 public class Board implements BoardInterface {
+    /** Enable board snapshot printing for debugging only */
+    private static final boolean DEBUG_BOARD_OUTPUT = false;
 
     /** The length (dimension) of the square board */
     private Integer boardLength;
@@ -134,9 +136,13 @@ public class Board implements BoardInterface {
         }
 
         /* We shuffle the board using Fisher-Yates algorithm. */
-        show();
+        if (DEBUG_BOARD_OUTPUT) {
+            show();
+        }
         shuffle(boardArray);
-        show();
+        if (DEBUG_BOARD_OUTPUT) {
+            show();
+        }
     }
 
     /**

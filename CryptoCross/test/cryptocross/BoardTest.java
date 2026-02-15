@@ -3,8 +3,11 @@ package cryptocross;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 /**
@@ -303,5 +306,21 @@ public class BoardTest {
 
         assertEquals(4, generated[0],
             "First generated coordinate should be allowed to use boardLength-1");
+    }
+
+    @Test
+    public void testBoardConstructorDoesNotPrintDebugOutputByDefault() throws Exception {
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream outputCapture = new ByteArrayOutputStream();
+        try {
+            System.setOut(new PrintStream(outputCapture));
+            new Board(5);
+        } finally {
+            System.setOut(originalOut);
+        }
+
+        String output = outputCapture.toString(StandardCharsets.UTF_8);
+        assertFalse(output.contains("------------------------"),
+            "Board constructor should not dump debug board snapshots by default");
     }
 }
