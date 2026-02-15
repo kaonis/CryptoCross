@@ -50,6 +50,8 @@ public class CryptoCross extends JFrame implements ActionListener {
     private WordSubmissionService wordSubmissionService;
     /** Service for adjacency checks while selecting letters */
     private WordSelectionService wordSelectionService;
+    /** Service for board-mutation help-action state updates */
+    private HelpActionStateService helpActionStateService;
     /** Maximum number of words the player is allowed to complete */
     private Integer int_maxAllowedWords;
     /** Target/goal number of points to be attained by the player */
@@ -166,6 +168,7 @@ public class CryptoCross extends JFrame implements ActionListener {
         currentWord = new ArrayList<>();
         wordSubmissionService = new WordSubmissionService();
         wordSelectionService = new WordSelectionService();
+        helpActionStateService = new HelpActionStateService();
 
         //Initialize Player
         initializePlayer();
@@ -629,12 +632,8 @@ public class CryptoCross extends JFrame implements ActionListener {
                                 // Update counters
                                 int_UsedSwapLetter++;
                                 checkHelps();
-                                
-                                // Exit swap mode
-                                tf_swapMode = false;
-                                swapLetter1 = null;
-                                swapLetter2 = null;
-                                
+
+                                applyHelpMutationStateReset();
                                 // Refresh the board
                                 refreshBoard();
                                 lb_foundAword.setText("Εναλλαγή ολοκληρώθηκε!");
@@ -976,6 +975,7 @@ public class CryptoCross extends JFrame implements ActionListener {
                             gameBoard.deleteRow(row);
                             int_UsedDeleteRow++;
                             checkHelps();
+                            applyHelpMutationStateReset();
                             refreshBoard();
                         } else {
                             JOptionPane.showMessageDialog(thisFrame,
@@ -1006,6 +1006,7 @@ public class CryptoCross extends JFrame implements ActionListener {
                             gameBoard.reorderRow(row);
                             int_UsedReorderRow++;
                             checkHelps();
+                            applyHelpMutationStateReset();
                             refreshBoard();
                         } else {
                             JOptionPane.showMessageDialog(thisFrame,
@@ -1036,6 +1037,7 @@ public class CryptoCross extends JFrame implements ActionListener {
                             gameBoard.reorderColumn(column);
                             int_UsedReorderColumn++;
                             checkHelps();
+                            applyHelpMutationStateReset();
                             refreshBoard();
                         } else {
                             JOptionPane.showMessageDialog(thisFrame,
@@ -1057,6 +1059,7 @@ public class CryptoCross extends JFrame implements ActionListener {
                 gameBoard.reorderBoard();
                 int_UsedReorderBoard++;
                 checkHelps();
+                applyHelpMutationStateReset();
                 refreshBoard();
             }
 
@@ -1077,6 +1080,16 @@ public class CryptoCross extends JFrame implements ActionListener {
             points += letter.getPoints();
         }
         return points;
+    }
+
+    private void applyHelpMutationStateReset() {
+        HelpActionStateService.HelpActionState state =
+                helpActionStateService.onBoardMutation(player.getPlayerScore(), tf_swapMode, currentWord);
+        tf_swapMode = state.isSwapMode();
+        swapLetter1 = null;
+        swapLetter2 = null;
+        int_currentWordPoints = state.getCurrentWordPoints();
+        lb2_wordPoints.setText(Integer.toString(int_currentWordPoints));
     }
     
     private void clearCurrentWord() {
