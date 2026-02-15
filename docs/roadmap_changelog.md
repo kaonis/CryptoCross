@@ -3,6 +3,17 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #98 - Add strict-mode persistence smoke-test notes
+- PR: #102
+- Summary:
+  - added `docs/strict_mode_persistence_smoke_notes.md` with concise strict-mode persistence smoke steps
+  - documented same-session new-game checks and full app restart checks
+  - linked strict-mode smoke notes from `docs/manual_smoke_checklist.md`
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: smoke notes are manual procedures and depend on tester environment/state cleanup
+
 ## 2026-02-15 - #97 - Add one-command script for targeted strict-mode checks
 - PR: #101
 - Summary:
