@@ -287,6 +287,42 @@ public class BoardTest {
     }
 
     @Test
+    public void testFixtureConstructorBuildsDeterministicBoard() throws Exception {
+        char[][] fixtureChars = {
+            {'Α', 'Β', 'Γ', 'Δ', 'Ε'},
+            {'Ζ', 'Η', 'Θ', 'Ι', 'Κ'},
+            {'Λ', 'Μ', 'Ν', 'Ξ', 'Ο'},
+            {'Π', 'Ρ', 'Σ', 'Τ', 'Υ'},
+            {'Φ', 'Χ', 'Ψ', 'Ω', 'Α'}
+        };
+
+        Board fixtureBoard = new Board(5, "custom-test-dictionary.txt", createFixture(fixtureChars));
+        Letter[][] boardArray = fixtureBoard.getBoardArray();
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                assertEquals(fixtureChars[i][j], boardArray[i][j].getLetterChar(),
+                    "Fixture letter should be preserved at [" + i + "][" + j + "]");
+                assertEquals(i, boardArray[i][j].getXcoord(),
+                    "X coordinate should match deterministic fixture position");
+                assertEquals(j, boardArray[i][j].getYcoord(),
+                    "Y coordinate should match deterministic fixture position");
+            }
+        }
+    }
+
+    @Test
+    public void testFixtureConstructorRejectsInvalidFixture() {
+        assertThrows(IllegalArgumentException.class,
+            () -> new Board(5, "custom-test-dictionary.txt", new Letter[4][5]),
+            "Fixture with incorrect dimensions should be rejected");
+
+        assertThrows(IllegalArgumentException.class,
+            () -> new Board(5, "custom-test-dictionary.txt", new Letter[5][5]),
+            "Fixture with null letters should be rejected");
+    }
+
+    @Test
     public void testRandomArrayGenUsesFullBoardIndexRange() throws Exception {
         Board testBoard = new Board(5);
 
@@ -371,5 +407,15 @@ public class BoardTest {
         } finally {
             Files.deleteIfExists(tempDict);
         }
+    }
+
+    private Letter[][] createFixture(char[][] chars) throws UknownCharacterException {
+        Letter[][] fixture = new Letter[chars.length][chars[0].length];
+        for (int i = 0; i < chars.length; i++) {
+            for (int j = 0; j < chars[i].length; j++) {
+                fixture[i][j] = new WhiteLetter(chars[i][j]);
+            }
+        }
+        return fixture;
     }
 }

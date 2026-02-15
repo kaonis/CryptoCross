@@ -74,6 +74,44 @@ public class Board implements BoardInterface {
     }
 
     /**
+     * Constructs a board from a deterministic fixture for tests.
+     * Package-private on purpose so production code keeps using generated boards.
+     * @param boardLength the length (dimension) of the square board
+     * @param dictionaryPath the path to the dictionary file to use
+     * @param boardFixture the exact board layout to apply
+     * @throws UknownCharacterException if dictionary setup encounters an unknown character
+     */
+    Board(Integer boardLength, String dictionaryPath, Letter[][] boardFixture) throws UknownCharacterException {
+        this.boardLength = boardLength;
+        boardArray = new Letter[boardLength][boardLength];
+        random = new SecureRandom();
+        dict = new Dictionary(dictionaryPath, boardLength);
+        wordsNum = 0;
+
+        applyBoardFixture(boardFixture);
+    }
+
+    private void applyBoardFixture(Letter[][] boardFixture) {
+        if (boardFixture == null || boardFixture.length != boardLength) {
+            throw new IllegalArgumentException("Board fixture must match board length");
+        }
+
+        for (int i = 0; i < boardLength; i++) {
+            if (boardFixture[i] == null || boardFixture[i].length != boardLength) {
+                throw new IllegalArgumentException("Board fixture must be square with board length dimensions");
+            }
+            for (int j = 0; j < boardLength; j++) {
+                Letter letter = boardFixture[i][j];
+                if (letter == null) {
+                    throw new IllegalArgumentException("Board fixture cannot contain null letters");
+                }
+                letter.setCoords(i, j);
+                boardArray[i][j] = letter;
+            }
+        }
+    }
+
+    /**
      * Generates a new board layout based on board length.
      * Determines the number of colored letters based on board size,
      * places dictionary words, fills remaining spaces with random characters,
