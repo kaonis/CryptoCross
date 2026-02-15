@@ -621,7 +621,7 @@ public class CryptoCross extends JFrame implements ActionListener {
                                 // First letter selected
                                 swapLetter1 = tempLetter;
                                 ((JButton) e.getSource()).setBackground(Color.CYAN);
-                                lb_foundAword.setText("Επιλέξτε το δεύτερο γράμμα");
+                                lb_foundAword.setText(messages.getString("status.swap.select.second"));
                             } else if (swapLetter2 == null && tempLetter != swapLetter1) {
                                 // Second letter selected
                                 swapLetter2 = tempLetter;
@@ -636,14 +636,14 @@ public class CryptoCross extends JFrame implements ActionListener {
                                 applyHelpMutationStateReset();
                                 // Refresh the board
                                 refreshBoard();
-                                lb_foundAword.setText("Εναλλαγή ολοκληρώθηκε!");
+                                lb_foundAword.setText(messages.getString("status.swap.completed"));
                             } else if (tempLetter == swapLetter1) {
                                 // Cancel swap mode if clicking the same letter
                                 tf_swapMode = false;
                                 swapLetter1 = null;
                                 swapLetter2 = null;
                                 refreshBoard();
-                                lb_foundAword.setText("Εναλλαγή ακυρώθηκε");
+                                lb_foundAword.setText(messages.getString("status.swap.cancelled"));
                             }
                         } else if (((JButton) e.getSource()).getBackground().equals(Color.YELLOW)) {
                             // Deselect letter
@@ -656,7 +656,7 @@ public class CryptoCross extends JFrame implements ActionListener {
                         } else {
                             // Select letter
                             if (!wordSelectionService.canSelectNext(currentWord, tempLetter)) {
-                                lb_foundAword.setText("✗ Επιλέξτε γειτονικό γράμμα");
+                                lb_foundAword.setText(messages.getString("status.select.neighbor"));
                                 return;
                             }
                             ((JButton) e.getSource()).setBackground(Color.YELLOW);
@@ -780,7 +780,7 @@ public class CryptoCross extends JFrame implements ActionListener {
         
         if (choice == JOptionPane.YES_OPTION) {
             disableGameControls();
-            lb_foundAword.setText("Το παιχνίδι ακυρώθηκε");
+            lb_foundAword.setText(messages.getString("status.game.cancelled"));
             JOptionPane.showMessageDialog(thisFrame,
                     "Το παιχνίδι τερματίστηκε.\nΒαθμολογία: " + player.getPlayerScore(),
                     "Παιχνίδι Τερματίστηκε",
@@ -926,7 +926,8 @@ public class CryptoCross extends JFrame implements ActionListener {
                 // Update UI
                 lb2_totalPoints.setText(Integer.toString(player.getPlayerScore()));
                 lb2_wordsFound.setText(player.getCompletedWordsNum() + "/" + int_maxAllowedWords);
-                lb_foundAword.setText("✓ Σωστή λέξη! +" + wordPoints + " πόντοι");
+                lb_foundAword.setText(MessageFormat.format(
+                        messages.getString("status.word.accepted"), wordPoints));
                 
                 clearCurrentWord();
                 
@@ -953,11 +954,11 @@ public class CryptoCross extends JFrame implements ActionListener {
                     disableGameControls();
                 }
             } else if (submissionResult.getStatus() == WordSubmissionService.SubmissionStatus.DUPLICATE) {
-                lb_foundAword.setText("↺ Η λέξη έχει ήδη βρεθεί!");
+                lb_foundAword.setText(messages.getString("status.word.duplicate"));
                 clearCurrentWord();
             } else {
                 // Invalid word
-                lb_foundAword.setText("✗ Λανθασμένη λέξη!");
+                lb_foundAword.setText(messages.getString("status.word.invalid"));
                 clearCurrentWord();
             }
 
@@ -1069,7 +1070,7 @@ public class CryptoCross extends JFrame implements ActionListener {
                 tf_swapMode = true;
                 swapLetter1 = null;
                 swapLetter2 = null;
-                lb_foundAword.setText("Επιλέξτε δύο γράμματα για εναλλαγή");
+                lb_foundAword.setText(messages.getString("status.swap.select.two"));
             }
         }
     }
