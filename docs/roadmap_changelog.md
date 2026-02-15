@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #88 - Add strict-mode persistence integration test around startup defaults
+- PR: #92
+- Summary:
+  - added `StrictSelectionStartupIntegrationTest` for startup strict-mode behavior
+  - verifies default off behavior and persisted-value restoration across simulated app runs
+- Validation:
+  - ant compile-test
+  - java -jar lib/junit-platform-console-standalone-1.10.1.jar --class-path build/classes:build/test/classes --select-class cryptocross.StrictSelectionStartupIntegrationTest --select-class cryptocross.StrictSelectionPreferenceServiceTest
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: integration uses preference-service startup simulation rather than full Swing startup
+
 ## 2026-02-15 - #87 - Create roadmap_v9 after v8 completion
 - PR: #91
 - Summary:
