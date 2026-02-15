@@ -123,4 +123,17 @@ public class MenuItemTest {
             fail("exitMenuItemActionPerformed method not found");
         }
     }
+
+    @Test
+    public void testStrictSelectionToggleMethodExists() {
+        try {
+            Method method = CryptoCross.class.getDeclaredMethod(
+                "setStrictSelectionMode",
+                boolean.class
+            );
+            assertNotNull(method, "setStrictSelectionMode method should exist");
+        } catch (NoSuchMethodException e) {
+            fail("setStrictSelectionMode method not found");
+        }
+    }
 }
