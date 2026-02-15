@@ -160,26 +160,30 @@ public class Dictionary {
      * @return a new word for the board
      */
     private String getNuWord(int maxSize) {
-        SecureRandom    random        = new SecureRandom();
-        int             randomNumber  = 0;
-        String          nuWord        = "";
-        boolean         found;
-        
-        // Get a new word that is not previously used.
-        do {
-            // Get a new word.
-            found = false;
-            randomNumber = random.nextInt(wordlist.size() - 1);
-            nuWord = wordlist.get(randomNumber);
-            // Check that is not previously selected.
-            for (String usedWord : boardWords) {
-                if (usedWord.equals(nuWord)) {
-                    found = true;
+        SecureRandom random = new SecureRandom();
+        ArrayList<String> candidates = new ArrayList<>();
+
+        // Prefer unused words that fit the requested max length.
+        for (String word : wordlist) {
+            if (!boardWords.contains(word) && word.length() <= maxSize) {
+                candidates.add(word);
+            }
+        }
+
+        // If all fitting words have been used, allow reuse instead of looping forever.
+        if (candidates.isEmpty()) {
+            for (String word : wordlist) {
+                if (word.length() <= maxSize) {
+                    candidates.add(word);
                 }
             }
-        } while (found == true || nuWord.length() > maxSize);
-        
-        return nuWord;
+        }
+
+        if (candidates.isEmpty()) {
+            throw new IllegalStateException("No dictionary words fit max size " + maxSize);
+        }
+
+        return candidates.get(random.nextInt(candidates.size()));
     }
     
     /**
@@ -221,6 +225,8 @@ public class Dictionary {
         word = word.replaceAll("[Ί]", "Ι");
         word = word.replaceAll("[Ύ]", "Υ");
         word = word.replaceAll("[Ώ]", "Ω");
+        word = word.replaceAll("[Ϊ]", "Ι");
+        word = word.replaceAll("[Ϋ]", "Υ");
         return word;
     }
 
