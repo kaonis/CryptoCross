@@ -3,6 +3,10 @@ package cryptocross;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import static org.junit.jupiter.api.Assertions.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -143,6 +147,44 @@ public class DictionaryTest {
                 assertTrue(greekAlphabet.contains(String.valueOf(c)), 
                     "Word '" + word + "' contains non-Greek character: " + c);
             }
+        }
+    }
+
+    @Test
+    public void testSmallDictionaryDoesNotHangDuringGeneration() throws Exception {
+        Path tempDict = Files.createTempFile("cryptocross-small-dict", ".txt");
+        try {
+            Files.writeString(tempDict, "aaaaa\nbbbbb\n", StandardCharsets.UTF_8);
+
+            Dictionary smallDictionary = assertTimeoutPreemptively(
+                Duration.ofSeconds(2),
+                () -> new Dictionary(tempDict.toString(), 5),
+                "Board-word generation should complete for a small dictionary"
+            );
+
+            assertNotNull(smallDictionary);
+            assertFalse(smallDictionary.getBoardWords().isEmpty());
+        } finally {
+            Files.deleteIfExists(tempDict);
+        }
+    }
+
+    @Test
+    public void testGreekDiaeresisIsNormalized() throws Exception {
+        Path tempDict = Files.createTempFile("cryptocross-diaeresis-dict", ".txt");
+        try {
+            Files.writeString(tempDict, "χοϊκη\n", StandardCharsets.UTF_8);
+
+            Dictionary diaeresisDictionary = new Dictionary(tempDict.toString(), 5);
+            ArrayList<String> boardWords = diaeresisDictionary.getBoardWords();
+
+            assertFalse(boardWords.isEmpty(), "Board words should not be empty");
+            for (String word : boardWords) {
+                assertEquals("ΧΟΙΚΗ", word, "Diaeresis should be normalized to plain Greek vowels");
+            }
+            assertTrue(diaeresisDictionary.containsWord("ΧΟΙΚΗ"));
+        } finally {
+            Files.deleteIfExists(tempDict);
         }
     }
 }
