@@ -647,6 +647,10 @@ public class CryptoCross extends JFrame implements ActionListener {
                             }
                         } else if (((JButton) e.getSource()).getBackground().equals(Color.YELLOW)) {
                             // Deselect letter
+                            if (!wordSelectionService.canDeselect(currentWord, tempLetter)) {
+                                lb_foundAword.setText(messages.getString("status.select.strict.deselect.last"));
+                                return;
+                            }
                             ((JButton) e.getSource()).setBackground(tempColor);
                             currentWord.remove(tempLetter);
                             
@@ -1081,6 +1085,10 @@ public class CryptoCross extends JFrame implements ActionListener {
             points += letter.getPoints();
         }
         return points;
+    }
+
+    void setStrictSelectionMode(boolean strictSelectionMode) {
+        wordSelectionService.setStrictSelectionMode(strictSelectionMode);
     }
 
     private void applyHelpMutationStateReset() {

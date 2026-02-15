@@ -84,6 +84,7 @@ public class ResourceBundleTest {
             "status.swap.completed",
             "status.swap.cancelled",
             "status.select.neighbor",
+            "status.select.strict.deselect.last",
             "status.game.cancelled",
             "status.word.accepted",
             "status.word.duplicate",
