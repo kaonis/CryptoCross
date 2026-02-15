@@ -48,6 +48,8 @@ public class CryptoCross extends JFrame implements ActionListener {
     private WordPilot wordPilot;
     /** Service for non-UI word submission decisions */
     private WordSubmissionService wordSubmissionService;
+    /** Service for adjacency checks while selecting letters */
+    private WordSelectionService wordSelectionService;
     /** Maximum number of words the player is allowed to complete */
     private Integer int_maxAllowedWords;
     /** Target/goal number of points to be attained by the player */
@@ -163,6 +165,7 @@ public class CryptoCross extends JFrame implements ActionListener {
 
         currentWord = new ArrayList<>();
         wordSubmissionService = new WordSubmissionService();
+        wordSelectionService = new WordSelectionService();
 
         //Initialize Player
         initializePlayer();
@@ -653,6 +656,10 @@ public class CryptoCross extends JFrame implements ActionListener {
                             lb2_wordPoints.setText(Integer.toString(int_currentWordPoints));
                         } else {
                             // Select letter
+                            if (!wordSelectionService.canSelectNext(currentWord, tempLetter)) {
+                                lb_foundAword.setText("✗ Επιλέξτε γειτονικό γράμμα");
+                                return;
+                            }
                             ((JButton) e.getSource()).setBackground(Color.YELLOW);
                             currentWord.add(tempLetter);
                             
