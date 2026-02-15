@@ -3,6 +3,9 @@
 Use this template when a roadmap-linked issue is merged.
 Store new entries in `docs/roadmap_changelog.md` (newest first).
 
+## Cycle Rule
+For every merged roadmap issue, add a completed changelog entry with final PR number and validation evidence in the same delivery cycle.
+
 ## Entry Template
 
 ```md
