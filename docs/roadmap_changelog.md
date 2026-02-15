@@ -3,6 +3,16 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #81 - Create roadmap_v8 after v7 completion
+- PR: #83
+- Summary:
+  - added `docs/roadmap_v8.md`
+  - documented v7 completion and queued v8 priorities
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: none
+
 ## 2026-02-15 - #71 - Add UI-accessible strict selection mode toggle
 - PR: #78
 - Summary:
