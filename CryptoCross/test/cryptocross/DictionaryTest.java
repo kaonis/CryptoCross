@@ -187,4 +187,28 @@ public class DictionaryTest {
             Files.deleteIfExists(tempDict);
         }
     }
+
+    @Test
+    public void testGreekCombinedDiacriticsAreNormalized() throws Exception {
+        Path tempDict = Files.createTempFile("cryptocross-combined-diacritics-dict", ".txt");
+        try {
+            Files.writeString(tempDict, "μαΐου\n", StandardCharsets.UTF_8);
+
+            Dictionary combinedDictionary = new Dictionary(tempDict.toString(), 5);
+            ArrayList<String> boardWords = combinedDictionary.getBoardWords();
+
+            assertFalse(boardWords.isEmpty(), "Board words should not be empty");
+            for (String word : boardWords) {
+                assertEquals("ΜΑΙΟΥ", word,
+                    "Combined Greek diacritics should be normalized to plain Greek vowels");
+                for (char c : word.toCharArray()) {
+                    assertTrue("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ".contains(String.valueOf(c)),
+                        "Word should contain only plain Greek uppercase characters");
+                }
+            }
+            assertTrue(combinedDictionary.containsWord("ΜΑΙΟΥ"));
+        } finally {
+            Files.deleteIfExists(tempDict);
+        }
+    }
 }

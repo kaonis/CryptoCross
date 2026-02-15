@@ -8,6 +8,7 @@ package cryptocross;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.SecureRandom;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -227,6 +228,10 @@ public class Dictionary {
         word = word.replaceAll("[Ώ]", "Ω");
         word = word.replaceAll("[Ϊ]", "Ι");
         word = word.replaceAll("[Ϋ]", "Υ");
+        // Normalize decomposed forms and strip any remaining combining diacritics.
+        word = Normalizer.normalize(word, Normalizer.Form.NFD);
+        word = word.replaceAll("\\p{M}", "");
+        word = Normalizer.normalize(word, Normalizer.Form.NFC);
         return word;
     }
 
