@@ -3,6 +3,17 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #95 - Add docs index for roadmap versions and completion state
+- PR: #100
+- Summary:
+  - added `docs/roadmap_index.md` for quick roadmap version navigation
+  - recorded roadmap version/date/status and concise completed-item notes
+  - documented update rules for active/completed roadmap status tracking
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: index requires manual updates when new roadmap versions are created
+
 ## 2026-02-15 - #96 - Create roadmap_v10 after v9 completion
 - PR: #99
 - Summary:
