@@ -75,4 +75,36 @@ public class ResourceBundleTest {
         assertTrue(formatted.contains("3"), "Should contain formatted numbers");
         assertFalse(formatted.contains("{0}"), "Should not contain unformatted placeholders");
     }
+
+    @Test
+    public void testGameplayStatusKeysExist() {
+        ResourceBundle messages = ResourceBundle.getBundle("cryptocross.CryptoCrossMessages");
+        String[] requiredKeys = {
+            "status.swap.select.second",
+            "status.swap.completed",
+            "status.swap.cancelled",
+            "status.select.neighbor",
+            "status.game.cancelled",
+            "status.word.accepted",
+            "status.word.duplicate",
+            "status.word.invalid",
+            "status.swap.select.two"
+        };
+
+        for (String key : requiredKeys) {
+            String value = messages.getString(key);
+            assertNotNull(value, "Missing status key: " + key);
+            assertFalse(value.isEmpty(), "Status key should not be empty: " + key);
+        }
+    }
+
+    @Test
+    public void testAcceptedWordStatusFormatting() {
+        ResourceBundle messages = ResourceBundle.getBundle("cryptocross.CryptoCrossMessages");
+        String template = messages.getString("status.word.accepted");
+        String formatted = MessageFormat.format(template, 12);
+
+        assertTrue(formatted.contains("12"), "Accepted status should include formatted points");
+        assertFalse(formatted.contains("{0}"), "Accepted status should not contain raw placeholders");
+    }
 }
