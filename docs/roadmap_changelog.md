@@ -3,6 +3,16 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #87 - Create roadmap_v9 after v8 completion
+- PR: #91
+- Summary:
+  - added `docs/roadmap_v9.md`
+  - documented v8 completion and queued v9 priorities
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: none
+
 ## 2026-02-15 - #80 - Add automated UI-flow check for strict mode toggle behavior
 - PR: #86
 - Summary:
