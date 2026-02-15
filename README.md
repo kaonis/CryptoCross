@@ -25,6 +25,11 @@ ant compile-test
 java -jar lib/junit-platform-console-standalone-1.10.1.jar --class-path build/classes:build/test/classes --scan-class-path
 ```
 
+Strict-mode focused checks can be run from the repository root with:
+```bash
+./scripts/run_strict_mode_checks.sh
+```
+
 ## Continuous Integration
 This project uses GitHub Actions for building and testing with manual triggering only (`workflow_dispatch`) to control Actions usage.
 Run the workflow from the [Actions tab](https://github.com/kaonis/CryptoCross/actions) when needed. It performs:
