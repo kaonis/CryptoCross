@@ -213,13 +213,10 @@ public class Board implements BoardInterface {
 
         int result[] = new int[size];
         for (int i = 0; i < size; i++) {
-            Integer newNumber = 0;
-            if (i > 0) {
-                do {
-                    newNumber = random.nextInt(boardLength - 1);
-                } while (existInArray(newNumber, result));
-            }
-
+            Integer newNumber;
+            do {
+                newNumber = random.nextInt(boardLength);
+            } while (existInArray(newNumber, result, i));
             result[i] = newNumber;
         }
 
@@ -232,9 +229,9 @@ public class Board implements BoardInterface {
      * @param array the array to search in
      * @return true if the number exists in the array, false otherwise
      */
-    private Boolean existInArray(int number, int[] array) {
+    private Boolean existInArray(int number, int[] array, int usedLength) {
 
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < usedLength; i++) {
             if (number == array[i]) {
                 return true;
             }

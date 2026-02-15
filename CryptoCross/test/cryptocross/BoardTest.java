@@ -3,6 +3,9 @@ package cryptocross;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.security.SecureRandom;
 
 /**
  * Unit tests for the Board class player help tools.
@@ -275,5 +278,30 @@ public class BoardTest {
         Letter[][] boardArray = defaultBoard.getBoardArray();
         assertEquals(5, boardArray.length, "Board should be 5x5");
         assertEquals(5, boardArray[0].length, "Board should be 5x5");
+    }
+
+    @Test
+    public void testRandomArrayGenUsesFullBoardIndexRange() throws Exception {
+        Board testBoard = new Board(5);
+
+        Field randomField = Board.class.getDeclaredField("random");
+        randomField.setAccessible(true);
+        randomField.set(testBoard, new SecureRandom() {
+            private int callCount = 0;
+
+            @Override
+            public int nextInt(int bound) {
+                int value = (bound - 1) - callCount;
+                callCount++;
+                return Math.max(value, 0);
+            }
+        });
+
+        Method randomArrayGen = Board.class.getDeclaredMethod("randomArrayGen", Integer.class);
+        randomArrayGen.setAccessible(true);
+        int[] generated = (int[]) randomArrayGen.invoke(testBoard, 3);
+
+        assertEquals(4, generated[0],
+            "First generated coordinate should be allowed to use boardLength-1");
     }
 }
