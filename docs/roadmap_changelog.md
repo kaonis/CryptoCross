@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #80 - Add automated UI-flow check for strict mode toggle behavior
+- PR: #86
+- Summary:
+  - added `StrictSelectionToggleFlowHarnessTest` for automated strict-mode toggle flow verification
+  - verifies runtime toggle updates non-terminal deselection behavior in an active selection flow
+- Validation:
+  - ant compile-test
+  - java -jar lib/junit-platform-console-standalone-1.10.1.jar --class-path build/classes:build/test/classes --select-class cryptocross.StrictSelectionToggleFlowHarnessTest --select-class cryptocross.StrictSelectionFlowIntegrationTest --select-class cryptocross.WordSelectionServiceTest
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: harness is service-level and does not drive Swing components directly
+
 ## 2026-02-15 - #82 - Persist strict selection mode preference across sessions
 - PR: #85
 - Summary:
