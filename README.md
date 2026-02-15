@@ -35,6 +35,11 @@ Daily roadmap merge summaries (defaults to today) can be generated with:
 ./scripts/summarize_daily_merges.sh [YYYY-MM-DD]
 ```
 
+Roadmap/index/changelog consistency can be checked with:
+```bash
+./scripts/check_roadmap_links.sh
+```
+
 Gameplay settings/defaults snapshot:
 - `docs/gameplay_settings_snapshot.md`
 
