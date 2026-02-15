@@ -26,9 +26,8 @@ java -jar lib/junit-platform-console-standalone-1.10.1.jar --class-path build/cl
 ```
 
 ## Continuous Integration
-This project uses GitHub Actions for automated building and testing. Every push and pull request triggers:
+This project uses GitHub Actions for building and testing with manual triggering only (`workflow_dispatch`) to control Actions usage.
+Run the workflow from the [Actions tab](https://github.com/kaonis/CryptoCross/actions) when needed. It performs:
 - Compilation with Java 17
-- Execution of all unit tests (24 tests)
+- Execution of all unit tests
 - JAR artifact generation
-
-See the [Actions tab](https://github.com/kaonis/CryptoCross/actions) for build status and history.
