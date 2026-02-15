@@ -3,6 +3,17 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #106 - Add PR template checklist that links related roadmap/issue IDs
+- PR: #108
+- Summary:
+  - added `.github/pull_request_template.md` with issue and roadmap linkage fields
+  - added required local validation checklist entries
+  - added manual-only workflow reminder for controlled Actions usage
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: checklist quality depends on PR authors filling template fields accurately
+
 ## 2026-02-15 - #103 - Create roadmap_v11 after v10 completion
 - PR: #107
 - Summary:
