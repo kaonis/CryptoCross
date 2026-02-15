@@ -3,6 +3,19 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #71 - Add UI-accessible strict selection mode toggle
+- PR: #78
+- Summary:
+  - added gameplay UI checkbox to toggle strict selection mode at runtime
+  - connected checkbox state to strict selection logic while keeping default mode disabled
+  - disabled strict-mode checkbox with other gameplay controls when game ends/stops
+- Validation:
+  - ant compile-test
+  - java -jar lib/junit-platform-console-standalone-1.10.1.jar --class-path build/classes:build/test/classes --select-class cryptocross.MenuItemTest --select-class cryptocross.ResourceBundleTest --select-class cryptocross.HtmlMessageIntegrationTest --select-class cryptocross.WordSelectionServiceTest
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: UI wiring is in place; persistence of toggle setting across sessions is not yet implemented
+
 ## 2026-02-15 - #74 - Create roadmap_v7 after v6 completion
 - PR: #75
 - Summary:
