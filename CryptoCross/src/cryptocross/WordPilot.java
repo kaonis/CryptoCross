@@ -95,11 +95,8 @@ public class WordPilot {
      * @return true if the positions are adjacent neighbors, false otherwise
      */
     public Boolean isNeighbour(Integer xPosition, Integer yPosition, Integer xNew, Integer yNew) {
-        if ((xNew - xPosition == 0 || xNew - xPosition == 1) 
-                && (yNew - yPosition == 0 || yNew - yPosition == 1)) {
-            return true;
-        } else {
-            return false;
-        }
+        int xDiff = Math.abs(xNew - xPosition);
+        int yDiff = Math.abs(yNew - yPosition);
+        return xDiff <= 1 && yDiff <= 1 && (xDiff != 0 || yDiff != 0);
     }
 }
