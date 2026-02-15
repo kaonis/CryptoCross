@@ -101,4 +101,12 @@ public class LetterTest {
         assertTrue(str.contains("Points: 1"), 
             "toString should contain the points in the 'Points: 1' format");
     }
+
+    @Test
+    public void testUnknownCharacterThrowsException() {
+        assertThrows(UknownCharacterException.class, () -> new WhiteLetter('A'),
+            "Unsupported non-Greek characters should throw UknownCharacterException");
+        assertThrows(UknownCharacterException.class, () -> new RedLetter('1'),
+            "Unsupported numeric characters should throw UknownCharacterException");
+    }
 }

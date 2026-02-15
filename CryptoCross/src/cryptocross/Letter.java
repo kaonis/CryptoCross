@@ -181,6 +181,8 @@ public abstract class Letter {
             int_points = 3;
         } else if (ch_letter == '?') {
             int_points = 1;
+        } else {
+            throw new UknownCharacterException();
         }
 
     }
