@@ -423,6 +423,23 @@ public class Board implements BoardInterface {
         if (word == null || word.isEmpty()) {
             return false;
         }
+
+        // Ensure all selected letters form a contiguous neighbor path.
+        WordPilot wordPilot = new WordPilot(boardArray);
+        for (int i = 1; i < word.size(); i++) {
+            Letter previous = word.get(i - 1);
+            Letter current = word.get(i);
+            if (previous == null || current == null) {
+                return false;
+            }
+            if (!wordPilot.isNeighbour(
+                    previous.getXcoord(),
+                    previous.getYcoord(),
+                    current.getXcoord(),
+                    current.getYcoord())) {
+                return false;
+            }
+        }
         
         // Build the word string from letters
         StringBuilder wordBuilder = new StringBuilder();

@@ -8,7 +8,10 @@ import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 
 /**
  * Unit tests for the Board class player help tools.
@@ -322,5 +325,51 @@ public class BoardTest {
         String output = outputCapture.toString(StandardCharsets.UTF_8);
         assertFalse(output.contains("------------------------"),
             "Board constructor should not dump debug board snapshots by default");
+    }
+
+    @Test
+    public void testCheckWordValidityAcceptsAdjacentDictionaryWord() throws Exception {
+        Path tempDict = Files.createTempFile("cryptocross-adjacent-word", ".txt");
+        try {
+            Files.writeString(tempDict, "ΑΒ\n", StandardCharsets.UTF_8);
+            Board testBoard = new Board(5, tempDict.toString());
+
+            Letter letterA = new WhiteLetter('Α');
+            letterA.setCoords(0, 0);
+            Letter letterB = new WhiteLetter('Β');
+            letterB.setCoords(0, 1);
+
+            ArrayList<Letter> word = new ArrayList<>();
+            word.add(letterA);
+            word.add(letterB);
+
+            assertTrue(testBoard.checkWordValidity(word),
+                "Adjacent letters that form a dictionary word should be valid");
+        } finally {
+            Files.deleteIfExists(tempDict);
+        }
+    }
+
+    @Test
+    public void testCheckWordValidityRejectsNonAdjacentDictionaryWord() throws Exception {
+        Path tempDict = Files.createTempFile("cryptocross-nonadjacent-word", ".txt");
+        try {
+            Files.writeString(tempDict, "ΑΒ\n", StandardCharsets.UTF_8);
+            Board testBoard = new Board(5, tempDict.toString());
+
+            Letter letterA = new WhiteLetter('Α');
+            letterA.setCoords(0, 0);
+            Letter letterB = new WhiteLetter('Β');
+            letterB.setCoords(0, 2);
+
+            ArrayList<Letter> word = new ArrayList<>();
+            word.add(letterA);
+            word.add(letterB);
+
+            assertFalse(testBoard.checkWordValidity(word),
+                "Non-adjacent letters should be rejected even if they form a dictionary word");
+        } finally {
+            Files.deleteIfExists(tempDict);
+        }
     }
 }
