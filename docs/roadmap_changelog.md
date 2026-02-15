@@ -3,6 +3,19 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #82 - Persist strict selection mode preference across sessions
+- PR: #85
+- Summary:
+  - added `StrictSelectionPreferenceService` to store strict-mode preference
+  - load/apply saved strict-mode state at startup and save on toggle changes
+  - added focused tests for default and save/load preference behavior
+- Validation:
+  - ant compile-test
+  - java -jar lib/junit-platform-console-standalone-1.10.1.jar --class-path build/classes:build/test/classes --select-class cryptocross.StrictSelectionPreferenceServiceTest --select-class cryptocross.WordSelectionServiceTest --select-class cryptocross.StrictSelectionFlowIntegrationTest --select-class cryptocross.ResourceBundleTest
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: preference is user-local and not synced across machines
+
 ## 2026-02-15 - #79 - Add cycle status command/doc to show roadmap progression
 - PR: #84
 - Summary:
