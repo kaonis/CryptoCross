@@ -906,6 +906,13 @@ public class CryptoCross extends JFrame implements ActionListener {
             
             // Check if word is valid
             if (gameBoard.checkWordValidity(currentWord)) {
+                String completedWord = buildWordString(currentWord);
+                if (!player.registerCompletedWord(completedWord)) {
+                    lb_foundAword.setText("↺ Η λέξη έχει ήδη βρεθεί!");
+                    clearCurrentWord();
+                    return;
+                }
+
                 // Calculate points
                 int wordPoints = calculateWordPoints(currentWord);
                 
@@ -1055,6 +1062,14 @@ public class CryptoCross extends JFrame implements ActionListener {
                 lb_foundAword.setText("Επιλέξτε δύο γράμματα για εναλλαγή");
             }
         }
+    }
+
+    private String buildWordString(ArrayList<Letter> word) {
+        StringBuilder wordBuilder = new StringBuilder();
+        for (Letter letter : word) {
+            wordBuilder.append(letter.getLetterChar());
+        }
+        return wordBuilder.toString();
     }
     
     private int calculateWordPoints(ArrayList<Letter> word) {

@@ -5,6 +5,9 @@
  */
 package cryptocross;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Represents a player in the CryptoCross game.
  * Tracks the player's name, score, and number of words completed.
@@ -20,6 +23,9 @@ public class Player implements PlayerInterface {
     /** The number of words the player has completed */
     private Integer int_wordsCompleted;
 
+    /** Set of words already completed in the current game */
+    private Set<String> completedWords;
+
     /**
      * Constructs a new Player with initial values.
      * Score and words completed are initialized to 0.
@@ -27,6 +33,7 @@ public class Player implements PlayerInterface {
     public Player() {
         this.int_playerScore = 0;
         this.int_wordsCompleted = 0;
+        this.completedWords = new HashSet<>();
     }
 
     /**
@@ -89,6 +96,24 @@ public class Player implements PlayerInterface {
     @Override
     public void playerCompletedAWord() {
         this.int_wordsCompleted++;
+    }
+
+    /**
+     * Registers a completed word for the current game.
+     * @param word the completed word
+     * @return true if the word was new and registered, false if invalid or already completed
+     */
+    public boolean registerCompletedWord(String word) {
+        if (word == null) {
+            return false;
+        }
+
+        String normalizedWord = word.trim();
+        if (normalizedWord.isEmpty()) {
+            return false;
+        }
+
+        return completedWords.add(normalizedWord);
     }
 
 }

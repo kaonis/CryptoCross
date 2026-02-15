@@ -72,4 +72,21 @@ public class PlayerTest {
         assertEquals(80, player.getPlayerScore(), 
             "Score should be updated correctly");
     }
+
+    @Test
+    public void testRegisterCompletedWordRejectsDuplicates() {
+        assertTrue(player.registerCompletedWord("ΑΒ"),
+            "First completed word submission should be accepted");
+        assertFalse(player.registerCompletedWord("ΑΒ"),
+            "Duplicate completed word submission should be rejected");
+        assertTrue(player.registerCompletedWord("ΓΔ"),
+            "Different completed words should still be accepted");
+    }
+
+    @Test
+    public void testRegisterCompletedWordRejectsInvalidInput() {
+        assertFalse(player.registerCompletedWord(null));
+        assertFalse(player.registerCompletedWord(""));
+        assertFalse(player.registerCompletedWord("   "));
+    }
 }
