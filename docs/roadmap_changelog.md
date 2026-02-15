@@ -3,6 +3,17 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #113 - Create roadmap_v12 after v11 completion
+- PR: #115
+- Summary:
+  - added `docs/roadmap_v12.md` with v11 completion summary and v12 priorities
+  - marked all v11 priorities complete in `docs/roadmap_v11.md`
+  - updated `docs/roadmap_index.md` to mark v11 completed and v12 active
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: roadmap state accuracy depends on continuing to update index/checklists each cycle
+
 ## 2026-02-15 - #104 - Document current gameplay settings and defaults snapshot
 - PR: #110
 - Summary:
