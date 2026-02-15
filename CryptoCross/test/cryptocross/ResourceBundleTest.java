@@ -86,6 +86,7 @@ public class ResourceBundleTest {
             "status.swap.cancelled",
             "status.select.neighbor",
             "status.select.strict.deselect.last",
+            "status.strict.mode.enabled",
             "status.game.cancelled",
             "status.word.accepted",
             "status.word.duplicate",
