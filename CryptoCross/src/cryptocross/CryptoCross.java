@@ -46,6 +46,8 @@ public class CryptoCross extends JFrame implements ActionListener {
     private Board gameBoard;
     /** Helper to validate letter selection for word formation */
     private WordPilot wordPilot;
+    /** Service for non-UI word submission decisions */
+    private WordSubmissionService wordSubmissionService;
     /** Maximum number of words the player is allowed to complete */
     private Integer int_maxAllowedWords;
     /** Target/goal number of points to be attained by the player */
@@ -160,6 +162,7 @@ public class CryptoCross extends JFrame implements ActionListener {
         thisFrame = this;
 
         currentWord = new ArrayList<>();
+        wordSubmissionService = new WordSubmissionService();
 
         //Initialize Player
         initializePlayer();
@@ -904,18 +907,12 @@ public class CryptoCross extends JFrame implements ActionListener {
                 return;
             }
             
-            // Check if word is valid
-            if (gameBoard.checkWordValidity(currentWord)) {
-                String completedWord = buildWordString(currentWord);
-                if (!player.registerCompletedWord(completedWord)) {
-                    lb_foundAword.setText("↺ Η λέξη έχει ήδη βρεθεί!");
-                    clearCurrentWord();
-                    return;
-                }
+            WordSubmissionService.SubmissionResult submissionResult =
+                    wordSubmissionService.evaluate(currentWord, gameBoard, player);
 
-                // Calculate points
-                int wordPoints = calculateWordPoints(currentWord);
-                
+            if (submissionResult.getStatus() == WordSubmissionService.SubmissionStatus.ACCEPTED) {
+                int wordPoints = submissionResult.getPoints();
+
                 // Update player score
                 player.setPlayerScore(player.getPlayerScore() + wordPoints);
                 player.playerCompletedAWord();
@@ -949,6 +946,9 @@ public class CryptoCross extends JFrame implements ActionListener {
                             JOptionPane.INFORMATION_MESSAGE);
                     disableGameControls();
                 }
+            } else if (submissionResult.getStatus() == WordSubmissionService.SubmissionStatus.DUPLICATE) {
+                lb_foundAword.setText("↺ Η λέξη έχει ήδη βρεθεί!");
+                clearCurrentWord();
             } else {
                 // Invalid word
                 lb_foundAword.setText("✗ Λανθασμένη λέξη!");
@@ -1064,14 +1064,6 @@ public class CryptoCross extends JFrame implements ActionListener {
         }
     }
 
-    private String buildWordString(ArrayList<Letter> word) {
-        StringBuilder wordBuilder = new StringBuilder();
-        for (Letter letter : word) {
-            wordBuilder.append(letter.getLetterChar());
-        }
-        return wordBuilder.toString();
-    }
-    
     private int calculateWordPoints(ArrayList<Letter> word) {
         int points = 0;
         for (Letter letter : word) {
