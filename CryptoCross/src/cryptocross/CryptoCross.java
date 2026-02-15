@@ -159,6 +159,7 @@ public class CryptoCross extends JFrame implements ActionListener {
     private JLabel lb1_wordsFound;
     private JLabel lb2_wordsFound;
     private JLabel lb_foundAword;
+    private JLabel lb_strictModeIndicator;
     private JCheckBox cb_strictSelectionMode;
 
     //Constructor
@@ -404,14 +405,17 @@ public class CryptoCross extends JFrame implements ActionListener {
         lb1_wordsFound = new JLabel("Λέξεις που βρέθηκαν:");
         lb2_wordsFound = new JLabel(player.getCompletedWordsNum() + "/" + int_maxAllowedWords);
         lb_foundAword = new JLabel("");
+        lb_strictModeIndicator = new JLabel("");
         boolean strictSelectionEnabled = strictSelectionPreferenceService.loadStrictSelectionMode();
         cb_strictSelectionMode = new JCheckBox(messages.getString("label.strict.selection.mode"));
         cb_strictSelectionMode.setSelected(strictSelectionEnabled);
         setStrictSelectionMode(strictSelectionEnabled);
+        updateStrictModeIndicator(strictSelectionEnabled);
         cb_strictSelectionMode.addActionListener(evt -> {
             boolean selected = cb_strictSelectionMode.isSelected();
             setStrictSelectionMode(selected);
             strictSelectionPreferenceService.saveStrictSelectionMode(selected);
+            updateStrictModeIndicator(selected);
         });
 
         row1Panel = new JPanel(new BorderLayout());
@@ -481,6 +485,7 @@ public class CryptoCross extends JFrame implements ActionListener {
 
         //Right Row10
         row10Panel.add(lb_foundAword, BorderLayout.LINE_START);
+        row10Panel.add(lb_strictModeIndicator, BorderLayout.CENTER);
         row10Panel.add(cb_strictSelectionMode, BorderLayout.LINE_END);
 
         rightPanel.add(row10Panel);
@@ -1103,6 +1108,14 @@ public class CryptoCross extends JFrame implements ActionListener {
 
     void setStrictSelectionMode(boolean strictSelectionMode) {
         wordSelectionService.setStrictSelectionMode(strictSelectionMode);
+    }
+
+    private void updateStrictModeIndicator(boolean strictSelectionMode) {
+        if (lb_strictModeIndicator == null) {
+            return;
+        }
+        lb_strictModeIndicator.setText(
+                strictSelectionMode ? messages.getString("status.strict.mode.enabled") : "");
     }
 
     private void applyHelpMutationStateReset() {

@@ -3,6 +3,19 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #89 - Show strict-mode enabled indicator in gameplay status area
+- PR: #93
+- Summary:
+  - added a dedicated strict-mode indicator label in the gameplay status area
+  - indicator is shown only when strict mode is enabled and hidden when disabled
+  - localized indicator message and expanded resource-bundle key validation
+- Validation:
+  - ant compile-test
+  - java -jar lib/junit-platform-console-standalone-1.10.1.jar --class-path build/classes:build/test/classes --select-class cryptocross.MenuItemTest --select-class cryptocross.ResourceBundleTest --select-class cryptocross.HtmlMessageIntegrationTest
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: indicator reflects runtime toggle state only for active game session UI
+
 ## 2026-02-15 - #88 - Add strict-mode persistence integration test around startup defaults
 - PR: #92
 - Summary:
