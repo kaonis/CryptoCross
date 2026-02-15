@@ -3,6 +3,17 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #90 - Add small release-notes generator from roadmap changelog entries
+- PR: #94
+- Summary:
+  - added `scripts/generate_release_notes.sh` to generate compact release notes from roadmap changelog
+  - added `docs/release_notes_generator.md` with usage and examples
+- Validation:
+  - ./scripts/generate_release_notes.sh 3
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: generator summarizes changelog entries and currently omits validation/risk sections by design
+
 ## 2026-02-15 - #89 - Show strict-mode enabled indicator in gameplay status area
 - PR: #93
 - Summary:
