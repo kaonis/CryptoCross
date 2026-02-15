@@ -3,6 +3,16 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #96 - Create roadmap_v10 after v9 completion
+- PR: #99
+- Summary:
+  - added `docs/roadmap_v10.md`
+  - documented v9 completion and queued v10 priorities
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: none
+
 ## 2026-02-15 - #90 - Add small release-notes generator from roadmap changelog entries
 - PR: #94
 - Summary:
