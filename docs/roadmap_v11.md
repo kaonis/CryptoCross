@@ -10,9 +10,9 @@
 - Validation baseline remains green locally (`ant clean run-junit5-tests`, `ant clean jar`).
 
 ## v11 Priorities
-- [ ] #106 Add PR template checklist that links related roadmap/issue IDs.
-- [ ] #105 Add script to summarize merges from today's roadmap changelog entries.
-- [ ] #104 Document current gameplay settings and defaults snapshot.
+- [x] #106 Add PR template checklist that links related roadmap/issue IDs.
+- [x] #105 Add script to summarize merges from today's roadmap changelog entries.
+- [x] #104 Document current gameplay settings and defaults snapshot.
 
 ## v11 Success Criteria
 - PR submissions include a lightweight checklist for roadmap/issue linkage.

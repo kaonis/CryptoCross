@@ -14,7 +14,8 @@ Quick navigation for roadmap versions and completion state.
 | v8 | 2026-02-15 | Completed | Strict-mode persistence, toggle harness, cycle status planning |
 | v9 | 2026-02-15 | Completed | Indicator + startup integration + release-notes generator planning |
 | v10 | 2026-02-15 | Completed | Roadmap index, strict-check script, strict-mode smoke notes |
-| v11 | 2026-02-15 | Active | PR checklist linkage, daily merge summary, gameplay defaults snapshot |
+| v11 | 2026-02-15 | Completed | PR checklist linkage, daily merge summary, gameplay defaults snapshot |
+| v12 | 2026-02-15 | Active | Roadmap link checker, manual workflow runbook, smoke evidence snippet |
 
 ## Files
 - `docs/roadmap_v1.md`
@@ -28,6 +29,7 @@ Quick navigation for roadmap versions and completion state.
 - `docs/roadmap_v9.md`
 - `docs/roadmap_v10.md`
 - `docs/roadmap_v11.md`
+- `docs/roadmap_v12.md`
 
 ## Usage
 - Update this index when a new roadmap version is created.
