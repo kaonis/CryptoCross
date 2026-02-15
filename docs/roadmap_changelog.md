@@ -3,6 +3,16 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #79 - Add cycle status command/doc to show roadmap progression
+- PR: #84
+- Summary:
+  - added `docs/roadmap_cycle_status.md` with repeatable cycle status commands
+  - documented a quick checklist for roadmap progression checks before starting the next issue
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: none
+
 ## 2026-02-15 - #81 - Create roadmap_v8 after v7 completion
 - PR: #83
 - Summary:
