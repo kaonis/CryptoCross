@@ -3,6 +3,17 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #104 - Document current gameplay settings and defaults snapshot
+- PR: #110
+- Summary:
+  - added `docs/gameplay_settings_snapshot.md` with startup defaults, targets, help limits, and strict-mode behavior
+  - included strict-mode default/persistence details and related control behavior
+  - linked the snapshot doc from `README.md`
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: snapshot must be updated when gameplay defaults change in code
+
 ## 2026-02-15 - #105 - Add script to summarize merges from today's roadmap changelog entries
 - PR: #109
 - Summary:

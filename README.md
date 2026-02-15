@@ -35,6 +35,9 @@ Daily roadmap merge summaries (defaults to today) can be generated with:
 ./scripts/summarize_daily_merges.sh [YYYY-MM-DD]
 ```
 
+Gameplay settings/defaults snapshot:
+- `docs/gameplay_settings_snapshot.md`
+
 ## Continuous Integration
 This project uses GitHub Actions for building and testing with manual triggering only (`workflow_dispatch`) to control Actions usage.
 Run the workflow from the [Actions tab](https://github.com/kaonis/CryptoCross/actions) when needed. It performs:
