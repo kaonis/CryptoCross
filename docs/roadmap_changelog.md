@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #97 - Add one-command script for targeted strict-mode checks
+- PR: #101
+- Summary:
+  - added `scripts/run_strict_mode_checks.sh` to run strict-mode focused tests with one command
+  - script compiles tests and runs only strict-mode related JUnit classes
+  - documented script usage in `README.md`
+- Validation:
+  - ./scripts/run_strict_mode_checks.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: script assumes Unix shell (`bash`) and `:` classpath separator
+
 ## 2026-02-15 - #95 - Add docs index for roadmap versions and completion state
 - PR: #100
 - Summary:
