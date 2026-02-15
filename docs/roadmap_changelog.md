@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #111 - Add roadmap-doc link checker script
+- PR: #116
+- Summary:
+  - added `scripts/check_roadmap_links.sh` to validate roadmap/index/changelog consistency
+  - verifies version alignment across roadmap files, roadmap index table, and roadmap index file list
+  - verifies changelog roadmap references point to existing roadmap files
+- Validation:
+  - ./scripts/check_roadmap_links.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: checker logic depends on current markdown structure conventions in roadmap docs
+
 ## 2026-02-15 - #113 - Create roadmap_v12 after v11 completion
 - PR: #115
 - Summary:
