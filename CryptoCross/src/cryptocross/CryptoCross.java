@@ -50,6 +50,8 @@ public class CryptoCross extends JFrame implements ActionListener {
     private WordSubmissionService wordSubmissionService;
     /** Service for adjacency checks while selecting letters */
     private WordSelectionService wordSelectionService;
+    /** Service for persisting strict selection mode preference */
+    private StrictSelectionPreferenceService strictSelectionPreferenceService;
     /** Service for board-mutation help-action state updates */
     private HelpActionStateService helpActionStateService;
     /** Maximum number of words the player is allowed to complete */
@@ -169,6 +171,7 @@ public class CryptoCross extends JFrame implements ActionListener {
         currentWord = new ArrayList<>();
         wordSubmissionService = new WordSubmissionService();
         wordSelectionService = new WordSelectionService();
+        strictSelectionPreferenceService = new StrictSelectionPreferenceService();
         helpActionStateService = new HelpActionStateService();
 
         //Initialize Player
@@ -401,10 +404,15 @@ public class CryptoCross extends JFrame implements ActionListener {
         lb1_wordsFound = new JLabel("Λέξεις που βρέθηκαν:");
         lb2_wordsFound = new JLabel(player.getCompletedWordsNum() + "/" + int_maxAllowedWords);
         lb_foundAword = new JLabel("");
+        boolean strictSelectionEnabled = strictSelectionPreferenceService.loadStrictSelectionMode();
         cb_strictSelectionMode = new JCheckBox(messages.getString("label.strict.selection.mode"));
-        cb_strictSelectionMode.setSelected(false);
-        cb_strictSelectionMode.addActionListener(evt ->
-                setStrictSelectionMode(cb_strictSelectionMode.isSelected()));
+        cb_strictSelectionMode.setSelected(strictSelectionEnabled);
+        setStrictSelectionMode(strictSelectionEnabled);
+        cb_strictSelectionMode.addActionListener(evt -> {
+            boolean selected = cb_strictSelectionMode.isSelected();
+            setStrictSelectionMode(selected);
+            strictSelectionPreferenceService.saveStrictSelectionMode(selected);
+        });
 
         row1Panel = new JPanel(new BorderLayout());
         row2Panel = new JPanel(new BorderLayout());
