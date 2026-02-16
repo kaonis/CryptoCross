@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #151 - Create roadmap_v17 after v16 completion
+- PR: #155
+- Summary:
+  - marked all v16 priorities complete in `docs/roadmap_v16.md`
+  - added `docs/roadmap_v17.md` with priorities `#152`, `#153`, and `#154`
+  - updated `docs/roadmap_index.md` to set v16 completed and v17 active, and added `docs/roadmap_v17.md` to file list
+- Validation:
+  - ./scripts/check_roadmap_links.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: roadmap correctness depends on keeping status/checklist/changelog transitions synchronized each cycle
+
 ## 2026-02-16 - #146 - Validate selected dictionary file against active board size
 - PR: #150
 - Summary:
