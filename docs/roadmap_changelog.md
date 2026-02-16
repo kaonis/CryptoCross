@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #135 - Create roadmap_v15 after v14 completion
+- PR: #139
+- Summary:
+  - added `docs/roadmap_v15.md` with v14 completion summary and v15 priorities
+  - marked all v14 priorities complete in `docs/roadmap_v14.md`
+  - updated `docs/roadmap_index.md` to mark v14 completed and v15 active
+- Validation:
+  - ./scripts/check_roadmap_links.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: roadmap state accuracy depends on keeping index/checklist transitions synchronized each cycle
+
 ## 2026-02-16 - #130 - Add PR body lint check script for required sections
 - PR: #134
 - Summary:
