@@ -62,6 +62,11 @@ Operations index doc references can be checked with:
 ./scripts/check_operations_index_links.sh
 ```
 
+Run all pre-merge guard checks with one command:
+```bash
+./scripts/run_pre_merge_guard_checks.sh
+```
+
 Open issue status for the active roadmap can be listed with:
 ```bash
 ./scripts/roadmap_open_issue_status.sh
