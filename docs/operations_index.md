@@ -15,4 +15,5 @@ Quick navigation for operational workflow, roadmap process, and manual validatio
 
 ## Release and Reporting
 - `docs/release_notes_generator.md`: usage guide for release note generation script.
+- `docs/release_packaging_checklist.md`: compact pre-release build/launch/smoke checklist.
 - `docs/gameplay_settings_snapshot.md`: current gameplay defaults/settings snapshot.
