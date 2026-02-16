@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #121 - Add command/script to print open roadmap issues with status
+- PR: #125
+- Summary:
+  - added `scripts/roadmap_open_issue_status.sh` to print open issue status for active-roadmap priorities
+  - script derives active roadmap version from `docs/roadmap_index.md`
+  - documented usage in `README.md`
+- Validation:
+  - ./scripts/roadmap_open_issue_status.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: script requires authenticated `gh` access to read issue status
+
 ## 2026-02-16 - #119 - Add changelog formatting checker for roadmap entries
 - PR: #124
 - Summary:
