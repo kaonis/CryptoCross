@@ -10,9 +10,9 @@
 - Validation baseline remains green locally (`ant clean run-junit5-tests`, `ant clean jar`).
 
 ## v15 Priorities
-- [ ] #136 Add script to enforce manual-only workflow triggers.
-- [ ] #137 Add release packaging sanity-check checklist doc.
-- [ ] #138 Add gameplay bug/backlog snapshot doc.
+- [x] #136 Add script to enforce manual-only workflow triggers.
+- [x] #137 Add release packaging sanity-check checklist doc.
+- [x] #138 Add gameplay bug/backlog snapshot doc.
 
 ## v15 Success Criteria
 - A script exists to verify workflow files stay manual-only (`workflow_dispatch`).
