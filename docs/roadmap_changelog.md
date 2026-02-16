@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #138 - Add gameplay bug/backlog snapshot doc
+- PR: #142
+- Summary:
+  - added `docs/gameplay_backlog_snapshot.md` with evidence-backed gameplay gaps and deferred improvements
+  - captured follow-up candidates for dictionary behavior, validation, localization consistency, and UI smoke
+  - linked snapshot from `docs/operations_index.md`
+- Validation:
+  - manual doc review
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: snapshot is point-in-time and should be updated when gameplay behavior changes
+
 ## 2026-02-16 - #137 - Add release packaging sanity-check checklist doc
 - PR: #141
 - Summary:
