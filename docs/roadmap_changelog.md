@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #128 - Add helper script to suggest next roadmap version number
+- PR: #132
+- Summary:
+  - added `scripts/suggest_next_roadmap_version.sh` to print the next roadmap version from index data
+  - script validates missing/invalid roadmap index parsing scenarios
+  - documented usage in `README.md`
+- Validation:
+  - ./scripts/suggest_next_roadmap_version.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: parser assumes roadmap index table retains `| vN |` version formatting
+
 ## 2026-02-16 - #127 - Create roadmap_v14 after v13 completion
 - PR: #131
 - Summary:
