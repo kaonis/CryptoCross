@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #162 - Add integration coverage for dictionary path persistence boundary
+- PR: #166
+- Summary:
+  - added `DictionaryPathPersistenceBoundaryIntegrationTest` for session-vs-new-JVM dictionary path boundary behavior
+  - added `CryptoCrossDictionaryPathProbe` helper main class used by the test to inspect default path in a fresh process
+  - coverage locks current non-persistent boundary behavior without changing runtime dictionary persistence logic
+- Validation:
+  - ant compile-test && java -jar lib/junit-platform-console-standalone-1.10.1.jar --class-path build/classes:build/test/classes --select-class cryptocross.DictionaryPathPersistenceBoundaryIntegrationTest
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: test uses reflection against private static field and may require updates if field name/ownership changes
+
 ## 2026-02-16 - #161 - Add manual workflow trigger decision checklist
 - PR: #165
 - Summary:
