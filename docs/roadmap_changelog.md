@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #129 - Add docs index for operational/runbook documents
+- PR: #133
+- Summary:
+  - added `docs/operations_index.md` as a central index for operational and runbook docs
+  - grouped links by workflow/delivery, manual validation, and release/reporting categories
+  - linked the operations index from `README.md`
+- Validation:
+  - manual link review (`docs/operations_index.md` references)
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: operations index requires maintenance as docs are added or renamed
+
 ## 2026-02-16 - #128 - Add helper script to suggest next roadmap version number
 - PR: #132
 - Summary:
