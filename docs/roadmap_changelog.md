@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #146 - Validate selected dictionary file against active board size
+- PR: #150
+- Summary:
+  - updated dictionary selection validation in `CryptoCross` to use the active `gameBoard` size instead of hardcoded `5`
+  - introduced `validateDictionaryFileForBoardSize(...)` helper for focused validation logic reuse/testing
+  - added dictionary-selection tests plus `test-dictionary-6-letter-only.txt` fixture to prove size-dependent behavior
+- Validation:
+  - ant compile-test && java -jar lib/junit-platform-console-standalone-1.10.1.jar --class-path build/classes:build/test/classes --select-class cryptocross.DictionaryFileSelectionTest
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: validation still checks dictionary load/generation only and does not alter existing runtime dictionary-switch timing (next game)
+
 ## 2026-02-16 - #145 - Add manual smoke evidence template doc
 - PR: #149
 - Summary:
