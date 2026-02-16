@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #167 - Create roadmap_v19 after v18 completion
+- PR: #171
+- Summary:
+  - marked all v18 priorities complete in `docs/roadmap_v18.md`
+  - added `docs/roadmap_v19.md` with priorities `#168`, `#169`, and `#170`
+  - updated `docs/roadmap_index.md` to set v18 completed and v19 active, and added `docs/roadmap_v19.md` to file list
+- Validation:
+  - ./scripts/check_roadmap_links.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: roadmap state accuracy depends on keeping issue numbering and status transitions synchronized each cycle
+
 ## 2026-02-16 - #162 - Add integration coverage for dictionary path persistence boundary
 - PR: #166
 - Summary:
