@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #127 - Create roadmap_v14 after v13 completion
+- PR: #131
+- Summary:
+  - added `docs/roadmap_v14.md` with v13 completion summary and v14 priorities
+  - marked all v13 priorities complete in `docs/roadmap_v13.md`
+  - updated `docs/roadmap_index.md` to mark v13 completed and v14 active
+- Validation:
+  - ./scripts/check_roadmap_links.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: roadmap state accuracy depends on keeping roadmap index and checklists synchronized each cycle
+
 ## 2026-02-16 - #122 - Add dictionary-switch smoke steps to manual checklist
 - PR: #126
 - Summary:
