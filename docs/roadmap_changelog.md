@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #143 - Create roadmap_v16 after v15 completion
+- PR: #147
+- Summary:
+  - marked all v15 priorities completed in `docs/roadmap_v15.md`
+  - added `docs/roadmap_v16.md` with priorities `#144`, `#145`, and `#146`
+  - updated `docs/roadmap_index.md` with v15 completed/v16 active status and added `docs/roadmap_v16.md` to file list
+- Validation:
+  - ./scripts/check_roadmap_links.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: roadmap state remains process-dependent and requires each cycle to keep priorities/index/changelog aligned
+
 ## 2026-02-16 - #138 - Add gameplay bug/backlog snapshot doc
 - PR: #142
 - Summary:
