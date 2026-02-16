@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #160 - Create roadmap_v18 after v17 completion
+- PR: #163
+- Summary:
+  - marked all v17 priorities complete in `docs/roadmap_v17.md`
+  - added `docs/roadmap_v18.md` with priorities `#159`, `#161`, and `#162`
+  - updated `docs/roadmap_index.md` to set v17 completed and v18 active, and added `docs/roadmap_v18.md` to file list
+- Validation:
+  - ./scripts/check_roadmap_links.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: roadmap state remains process-sensitive and requires each cycle to keep issue mapping aligned
+
 ## 2026-02-16 - #154 - Add integration coverage for dictionary switch on non-default board size
 - PR: #158
 - Summary:
