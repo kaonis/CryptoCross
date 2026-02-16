@@ -3,6 +3,16 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #114 - Add reusable PR snippet for concise smoke-test evidence
+- PR: #118
+- Summary:
+  - added concise smoke-test evidence section to `.github/pull_request_template.md`
+  - added reusable snippet file `.github/pull_request_smoke_evidence_snippet.md`
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: snippet usefulness depends on PR authors filling the section with concrete evidence
+
 ## 2026-02-15 - #112 - Document manual-only workflow runbook and Actions budget controls
 - PR: #117
 - Summary:
