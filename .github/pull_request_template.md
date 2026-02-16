@@ -9,6 +9,12 @@
 - [ ] `ant clean run-junit5-tests`
 - [ ] `ant clean jar`
 
+## Smoke Test Evidence (concise)
+- Scope:
+- Steps:
+- Result:
+- Notes:
+
 ## Review Checklist
 - [ ] one issue -> one branch -> one PR
 - [ ] no unrelated files/cleanup
