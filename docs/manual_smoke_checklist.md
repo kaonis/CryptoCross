@@ -58,8 +58,17 @@ For strict-mode persistence specific coverage, also run:
   - Cancel status text appears.
   - Termination info dialog is shown.
 
+6. Dictionary switch behavior (next-game application)
+- During an active game, open menu action for dictionary file selection.
+- Select a valid `.txt` dictionary (for example `/Users/phantom/projects/CryptoCross/CryptoCross/custom-test-dictionary.txt`).
+- Expected:
+  - Success dialog confirms file selection.
+  - Dialog states dictionary change applies on the next game, not the current one.
+  - Current board/game continues without immediate dictionary swap effects.
+- Start a new game and verify dictionary-dependent behavior uses the selected file.
+- Then select an invalid dictionary file format/content and verify an error dialog is shown.
+
 ## Optional Extended Checks
-- Custom dictionary file selection accepts valid `.txt` files and rejects invalid format.
 - Restart with a different board size to confirm board reinitialization remains stable.
 
 ## Pass Criteria
