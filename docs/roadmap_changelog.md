@@ -3,6 +3,17 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-15 - #112 - Document manual-only workflow runbook and Actions budget controls
+- PR: #117
+- Summary:
+  - added `docs/manual_workflow_runbook.md` with manual workflow execution and budget control guidance
+  - documented local validation baseline before manual workflow runs
+  - linked runbook from `README.md`
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: runbook is guidance-only and depends on team discipline to follow consistently
+
 ## 2026-02-15 - #111 - Add roadmap-doc link checker script
 - PR: #116
 - Summary:
