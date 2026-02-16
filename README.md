@@ -45,6 +45,11 @@ Roadmap changelog entry formatting can be checked with:
 ./scripts/check_roadmap_changelog_format.sh
 ```
 
+Open issue status for the active roadmap can be listed with:
+```bash
+./scripts/roadmap_open_issue_status.sh
+```
+
 Gameplay settings/defaults snapshot:
 - `docs/gameplay_settings_snapshot.md`
 
