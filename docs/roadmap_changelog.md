@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #137 - Add release packaging sanity-check checklist doc
+- PR: #141
+- Summary:
+  - added `docs/release_packaging_checklist.md` with compact pre-release packaging checks
+  - checklist covers build/test, artifact presence, launch check, and quick functional smoke
+  - linked checklist from `docs/operations_index.md`
+- Validation:
+  - manual checklist/doc review
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: checklist is guidance-only and depends on manual execution discipline
+
 ## 2026-02-16 - #136 - Add script to enforce manual-only workflow triggers
 - PR: #140
 - Summary:
