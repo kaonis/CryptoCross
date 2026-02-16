@@ -21,7 +21,8 @@ Quick navigation for roadmap versions and completion state.
 | v15 | 2026-02-16 | Completed | Manual-only workflow checker, release packaging checklist, gameplay backlog snapshot |
 | v16 | 2026-02-16 | Completed | Operations-index link checker, smoke evidence template, dictionary-size validation fix |
 | v17 | 2026-02-16 | Completed | Pre-merge checks script, naming conventions runbook, non-default dictionary-switch coverage |
-| v18 | 2026-02-16 | Active | PR title lint script, workflow-trigger checklist, dictionary-persistence boundary coverage |
+| v18 | 2026-02-16 | Completed | PR title lint script, workflow-trigger checklist, dictionary-persistence boundary coverage |
+| v19 | 2026-02-16 | Active | Active-roadmap issue guard, branch naming checker, invalid dictionary-switch coverage |
 
 ## Files
 - `docs/roadmap_v1.md`
@@ -42,6 +43,7 @@ Quick navigation for roadmap versions and completion state.
 - `docs/roadmap_v16.md`
 - `docs/roadmap_v17.md`
 - `docs/roadmap_v18.md`
+- `docs/roadmap_v19.md`
 
 ## Usage
 - Update this index when a new roadmap version is created.
