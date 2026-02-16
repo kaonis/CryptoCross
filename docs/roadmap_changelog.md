@@ -3,6 +3,19 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #152 - Document issue/branch/PR naming conventions in runbook
+- PR: #156
+- Summary:
+  - added `Issue, Branch, and PR Conventions` guidance to `docs/manual_workflow_runbook.md`
+  - documented branch naming (`codex/issue-<id>-...`) and PR title format (`<type>: ... (#<id>)`)
+  - aligned `docs/roadmap_v17.md` issue-number text so `#152` maps to conventions and `#153` to pre-merge checks
+- Validation:
+  - manual runbook review
+  - ./scripts/check_roadmap_links.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: conventions are process guidance and depend on contributor adherence
+
 ## 2026-02-16 - #151 - Create roadmap_v17 after v16 completion
 - PR: #155
 - Summary:
