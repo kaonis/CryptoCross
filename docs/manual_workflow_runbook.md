@@ -8,6 +8,13 @@ Use this runbook to keep GitHub Actions usage budget-conscious while maintaining
 - Do not enable automatic triggers (`push`, `pull_request`) unless explicitly approved.
 - Run Actions only when local validation cannot provide enough confidence.
 
+## Issue, Branch, and PR Conventions
+- Create a GitHub issue for each chunk of work before implementation starts.
+- Use one issue -> one branch -> one PR; do not combine multiple issues in one PR.
+- Branch naming format: `codex/issue-<issue-number>-<short-kebab-summary>`.
+- PR title format: `<type>: <short summary> (#<issue-number>)`.
+- Include required PR body sections (`## Summary`, `## Validation`) and close the linked issue from the PR body.
+
 ## Local Validation Baseline (Before Any Manual CI Run)
 Run from `/Users/phantom/projects/CryptoCross/CryptoCross`:
 

@@ -10,8 +10,8 @@
 - Validation baseline remains green locally (`ant clean run-junit5-tests`, `ant clean jar`).
 
 ## v17 Priorities
-- [ ] #152 Add one-command local pre-merge guard checks script.
-- [ ] #153 Document issue/branch/PR naming conventions in runbook.
+- [ ] #152 Document issue/branch/PR naming conventions in runbook.
+- [ ] #153 Add one-command local pre-merge guard checks script.
 - [ ] #154 Add integration coverage for dictionary switch on non-default board size.
 
 ## v17 Success Criteria
