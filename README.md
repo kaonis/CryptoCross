@@ -50,6 +50,11 @@ Open issue status for the active roadmap can be listed with:
 ./scripts/roadmap_open_issue_status.sh
 ```
 
+Suggest the next roadmap version number from the current index with:
+```bash
+./scripts/suggest_next_roadmap_version.sh
+```
+
 Gameplay settings/defaults snapshot:
 - `docs/gameplay_settings_snapshot.md`
 
