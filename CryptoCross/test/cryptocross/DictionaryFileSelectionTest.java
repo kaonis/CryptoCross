@@ -60,4 +60,20 @@ public class DictionaryFileSelectionTest {
         Letter[][] boardArray = board.getBoardArray();
         assertNotNull(boardArray, "Board array should not be null");
     }
+
+    @Test
+    public void testDictionaryValidationUsesBoardSizeFiveConstraints() {
+        IllegalStateException ex = assertThrows(
+                IllegalStateException.class,
+                () -> CryptoCross.validateDictionaryFileForBoardSize("test-dictionary-6-letter-only.txt", 5));
+        assertTrue(ex.getMessage().contains("max size 5"),
+                "Validation should fail when all dictionary words exceed 5 letters");
+    }
+
+    @Test
+    public void testDictionaryValidationPassesWhenWordsFitBoardSize() {
+        assertDoesNotThrow(
+                () -> CryptoCross.validateDictionaryFileForBoardSize("test-dictionary-6-letter-only.txt", 8),
+                "Validation should pass when dictionary words fit the active board size");
+    }
 }
