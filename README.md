@@ -57,6 +57,11 @@ PR body required sections can be linted with:
 gh pr view <number> --json body --jq .body | ./scripts/check_pr_body_sections.sh
 ```
 
+Operations index doc references can be checked with:
+```bash
+./scripts/check_operations_index_links.sh
+```
+
 Open issue status for the active roadmap can be listed with:
 ```bash
 ./scripts/roadmap_open_issue_status.sh
