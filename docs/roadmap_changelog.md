@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #154 - Add integration coverage for dictionary switch on non-default board size
+- PR: #158
+- Summary:
+  - added `CryptoCross/test/cryptocross/DictionarySwitchIntegrationTest.java`
+  - covers dictionary-validation path with board size `8` and verifies first submission acceptance on deterministic `8x8` board
+  - keeps scope minimal by exercising existing validation helper and submission service without UI refactors
+- Validation:
+  - ant compile-test && java -jar lib/junit-platform-console-standalone-1.10.1.jar --class-path build/classes:build/test/classes --select-class cryptocross.DictionarySwitchIntegrationTest
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: integration test exercises non-default board path with controlled fixture, but does not automate Swing UI event flow
+
 ## 2026-02-16 - #153 - Add one-command local pre-merge guard checks script
 - PR: #157
 - Summary:
