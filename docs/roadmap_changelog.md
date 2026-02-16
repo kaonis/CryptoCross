@@ -3,6 +3,20 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #130 - Add PR body lint check script for required sections
+- PR: #134
+- Summary:
+  - added `scripts/check_pr_body_sections.sh` to validate required PR body sections
+  - checker supports both file input and stdin input for CLI/`gh` workflows
+  - documented usage in `README.md`, including direct `gh pr view ... |` piping
+- Validation:
+  - ./scripts/check_pr_body_sections.sh /tmp/pr_body_valid.md
+  - cat /tmp/pr_body_valid.md | ./scripts/check_pr_body_sections.sh
+  - ./scripts/check_pr_body_sections.sh /tmp/pr_body_invalid.md (expected failure)
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: checker enforces exact heading format (`## Summary`, `## Validation`) and will fail alternative heading styles
+
 ## 2026-02-16 - #129 - Add docs index for operational/runbook documents
 - PR: #133
 - Summary:
