@@ -3,6 +3,19 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #161 - Add manual workflow trigger decision checklist
+- PR: #165
+- Summary:
+  - added `docs/manual_workflow_trigger_decision_checklist.md` with concise manual-trigger decision criteria
+  - checklist covers preconditions, trigger conditions, skip conditions, and budget guardrails
+  - linked checklist from `docs/operations_index.md`
+- Validation:
+  - manual doc review
+  - ./scripts/check_operations_index_links.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: checklist is guidance-only and depends on consistent team usage
+
 ## 2026-02-16 - #159 - Add PR title format lint script
 - PR: #164
 - Summary:

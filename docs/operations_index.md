@@ -4,6 +4,7 @@ Quick navigation for operational workflow, roadmap process, and manual validatio
 
 ## Workflow and Delivery
 - `docs/manual_workflow_runbook.md`: manual-only GitHub Actions usage and local validation policy.
+- `docs/manual_workflow_trigger_decision_checklist.md`: compact checklist for deciding whether to run manual workflows.
 - `docs/roadmap_cycle_status.md`: concise checklist for roadmap cycle progression.
 - `docs/roadmap_index.md`: active/completed roadmap version index.
 - `docs/roadmap_changelog.md`: merged roadmap issue log with validation evidence.
