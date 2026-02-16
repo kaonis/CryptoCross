@@ -3,6 +3,17 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #120 - Create roadmap_v13 after v12 completion
+- PR: #123
+- Summary:
+  - added `docs/roadmap_v13.md` with v12 completion summary and v13 priorities
+  - marked all v12 priorities complete in `docs/roadmap_v12.md`
+  - updated `docs/roadmap_index.md` to mark v12 completed and v13 active
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: roadmap state accuracy depends on continuing to update index/checklists each cycle
+
 ## 2026-02-15 - #114 - Add reusable PR snippet for concise smoke-test evidence
 - PR: #118
 - Summary:
