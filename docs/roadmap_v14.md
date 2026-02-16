@@ -10,9 +10,9 @@
 - Validation baseline remains green locally (`ant clean run-junit5-tests`, `ant clean jar`).
 
 ## v14 Priorities
-- [ ] #128 Add helper script to suggest next roadmap version number.
-- [ ] #129 Add docs index for operational/runbook documents.
-- [ ] #130 Add PR body lint check script for required sections.
+- [x] #128 Add helper script to suggest next roadmap version number.
+- [x] #129 Add docs index for operational/runbook documents.
+- [x] #130 Add PR body lint check script for required sections.
 
 ## v14 Success Criteria
 - A helper script exists to print the next roadmap version based on `docs/roadmap_index.md`.
