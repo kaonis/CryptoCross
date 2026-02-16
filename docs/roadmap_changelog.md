@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #145 - Add manual smoke evidence template doc
+- PR: #149
+- Summary:
+  - added `docs/manual_smoke_evidence_template.md` with concise build/run/core-checks/issues sections
+  - template is reusable for release notes and PR smoke evidence logging
+  - linked template from `docs/operations_index.md`
+- Validation:
+  - manual template review
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: template quality still depends on consistently filling concrete evidence details
+
 ## 2026-02-16 - #144 - Add operations-index link checker script
 - PR: #148
 - Summary:
