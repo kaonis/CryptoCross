@@ -3,6 +3,20 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #159 - Add PR title format lint script
+- PR: #164
+- Summary:
+  - added `scripts/check_pr_title_format.sh` to lint PR title pattern `<type>: <summary> (#<issue-number>)`
+  - supports file input and stdin input to match existing local/`gh` script workflows
+  - documented usage in `README.md`
+- Validation:
+  - ./scripts/check_pr_title_format.sh /tmp/pr_title_valid.txt
+  - cat /tmp/pr_title_valid.txt | ./scripts/check_pr_title_format.sh
+  - ./scripts/check_pr_title_format.sh /tmp/pr_title_invalid.txt (expected failure)
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: linter enforces strict title pattern and may reject alternative but semantically valid title styles
+
 ## 2026-02-16 - #160 - Create roadmap_v18 after v17 completion
 - PR: #163
 - Summary:

@@ -57,6 +57,13 @@ PR body required sections can be linted with:
 gh pr view <number> --json body --jq .body | ./scripts/check_pr_body_sections.sh
 ```
 
+PR title format can be linted with:
+```bash
+./scripts/check_pr_title_format.sh /path/to/pr_title.txt
+# or from GitHub directly:
+gh pr view <number> --json title --jq .title | ./scripts/check_pr_title_format.sh
+```
+
 Operations index doc references can be checked with:
 ```bash
 ./scripts/check_operations_index_links.sh
