@@ -870,8 +870,8 @@ public class CryptoCross extends JFrame implements ActionListener {
             
             // Validate the dictionary file
             try {
-                // Try to create a test Dictionary to validate the file
-                Dictionary testDict = new Dictionary(selectedFile.getAbsolutePath(), 5);
+                int validationBoardLength = gameBoard != null ? gameBoard.getBoardLength() : 5;
+                validateDictionaryFileForBoardSize(selectedFile.getAbsolutePath(), validationBoardLength);
                 
                 // If successful, update the dictionary path
                 str_dictionaryPath = selectedFile.getAbsolutePath();
@@ -897,6 +897,10 @@ public class CryptoCross extends JFrame implements ActionListener {
                         "Failed to load dictionary file: " + selectedFile.getAbsolutePath(), ex);
             }
         }
+    }
+
+    static void validateDictionaryFileForBoardSize(String dictionaryPath, int boardLength) {
+        new Dictionary(dictionaryPath, boardLength);
     }
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
