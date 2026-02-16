@@ -10,9 +10,9 @@
 - Validation baseline remains green locally (`ant clean run-junit5-tests`, `ant clean jar`).
 
 ## v12 Priorities
-- [ ] #111 Add roadmap-doc link checker script.
-- [ ] #112 Document manual-only workflow runbook and Actions budget controls.
-- [ ] #114 Add reusable PR snippet for concise smoke-test evidence.
+- [x] #111 Add roadmap-doc link checker script.
+- [x] #112 Document manual-only workflow runbook and Actions budget controls.
+- [x] #114 Add reusable PR snippet for concise smoke-test evidence.
 
 ## v12 Success Criteria
 - A script exists to check roadmap/index/changelog linkage consistency.
