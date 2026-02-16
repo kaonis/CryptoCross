@@ -11,6 +11,7 @@ Quick navigation for operational workflow, roadmap process, and manual validatio
 
 ## Manual Validation
 - `docs/manual_smoke_checklist.md`: primary manual smoke checklist.
+- `docs/manual_smoke_evidence_template.md`: reusable template for concise smoke evidence notes.
 - `docs/strict_mode_persistence_smoke_notes.md`: focused strict-mode persistence smoke steps.
 
 ## Release and Reporting
