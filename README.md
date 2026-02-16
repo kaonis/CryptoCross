@@ -58,6 +58,9 @@ Suggest the next roadmap version number from the current index with:
 Gameplay settings/defaults snapshot:
 - `docs/gameplay_settings_snapshot.md`
 
+Operations/runbook documentation index:
+- `docs/operations_index.md`
+
 ## Continuous Integration
 This project uses GitHub Actions for building and testing with manual triggering only (`workflow_dispatch`) to control Actions usage.
 Run the workflow from the [Actions tab](https://github.com/kaonis/CryptoCross/actions) when needed. It performs:
