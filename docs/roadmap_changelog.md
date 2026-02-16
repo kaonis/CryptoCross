@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #136 - Add script to enforce manual-only workflow triggers
+- PR: #140
+- Summary:
+  - added `scripts/check_manual_workflow_triggers.sh` to verify workflow files remain manual-only
+  - checker validates presence of `workflow_dispatch` and rejects non-manual triggers
+  - documented script usage in `README.md`
+- Validation:
+  - ./scripts/check_manual_workflow_triggers.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: parser targets current workflow formatting conventions (`on:` block and standard key layout)
+
 ## 2026-02-16 - #135 - Create roadmap_v15 after v14 completion
 - PR: #139
 - Summary:
