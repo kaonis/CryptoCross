@@ -10,9 +10,9 @@
 - Validation baseline remains green locally (`ant clean run-junit5-tests`, `ant clean jar`).
 
 ## v18 Priorities
-- [ ] #159 Add PR title format lint script.
-- [ ] #161 Add manual workflow trigger decision checklist.
-- [ ] #162 Add integration coverage for dictionary path persistence boundary.
+- [x] #159 Add PR title format lint script.
+- [x] #161 Add manual workflow trigger decision checklist.
+- [x] #162 Add integration coverage for dictionary path persistence boundary.
 
 ## v18 Success Criteria
 - A PR title lint script validates issue-linked title format and is documented for local usage.
