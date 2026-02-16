@@ -10,9 +10,9 @@
 - Validation baseline remains green locally (`ant clean run-junit5-tests`, `ant clean jar`).
 
 ## v16 Priorities
-- [ ] #144 Add operations-index link checker script.
-- [ ] #145 Add manual smoke evidence template doc.
-- [ ] #146 Validate selected dictionary file against active board size.
+- [x] #144 Add operations-index link checker script.
+- [x] #145 Add manual smoke evidence template doc.
+- [x] #146 Validate selected dictionary file against active board size.
 
 ## v16 Success Criteria
 - A script exists to verify markdown docs listed in `docs/operations_index.md` all exist.
