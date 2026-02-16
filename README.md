@@ -49,3 +49,6 @@ Run the workflow from the [Actions tab](https://github.com/kaonis/CryptoCross/ac
 - Compilation with Java 17
 - Execution of all unit tests
 - JAR artifact generation
+
+Manual-only workflow and Actions budget guidance:
+- `docs/manual_workflow_runbook.md`
