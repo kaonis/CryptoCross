@@ -10,9 +10,9 @@
 - Validation baseline remains green locally (`ant clean run-junit5-tests`, `ant clean jar`).
 
 ## v13 Priorities
-- [ ] #119 Add changelog formatting checker for roadmap entries.
-- [ ] #121 Add command/script to print open roadmap issues with status.
-- [ ] #122 Add dictionary-switch smoke steps to manual checklist.
+- [x] #119 Add changelog formatting checker for roadmap entries.
+- [x] #121 Add command/script to print open roadmap issues with status.
+- [x] #122 Add dictionary-switch smoke steps to manual checklist.
 
 ## v13 Success Criteria
 - A checker exists for roadmap changelog entry structure consistency.
