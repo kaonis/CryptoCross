@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #144 - Add operations-index link checker script
+- PR: #148
+- Summary:
+  - added `scripts/check_operations_index_links.sh` to validate `docs/*.md` references in `docs/operations_index.md`
+  - checker fails if any referenced documentation file is missing
+  - documented script usage in `README.md`
+- Validation:
+  - ./scripts/check_operations_index_links.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: checker currently validates markdown file existence only (not section anchors or external URLs)
+
 ## 2026-02-16 - #143 - Create roadmap_v16 after v15 completion
 - PR: #147
 - Summary:
