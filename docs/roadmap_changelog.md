@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #153 - Add one-command local pre-merge guard checks script
+- PR: #157
+- Summary:
+  - added `scripts/run_pre_merge_guard_checks.sh` to run existing guard checks in one command
+  - included roadmap links, changelog format, operations-index references, and manual-only workflow trigger checks
+  - documented usage in `README.md`
+- Validation:
+  - ./scripts/run_pre_merge_guard_checks.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: script sequence assumes guard scripts remain executable and keep current command interfaces
+
 ## 2026-02-16 - #152 - Document issue/branch/PR naming conventions in runbook
 - PR: #156
 - Summary:
