@@ -3,6 +3,16 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #122 - Add dictionary-switch smoke steps to manual checklist
+- PR: #126
+- Summary:
+  - updated `docs/manual_smoke_checklist.md` with dictionary-switch focused manual smoke steps
+  - documented expected dictionary label/status updates and post-switch submission check
+- Validation:
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: smoke checklist remains manual and relies on tester discipline
+
 ## 2026-02-16 - #121 - Add command/script to print open roadmap issues with status
 - PR: #125
 - Summary:
