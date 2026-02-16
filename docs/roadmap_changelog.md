@@ -3,6 +3,18 @@
 Chronological record of merged roadmap issues.
 Add new entries at the top using `docs/roadmap_changelog_template.md`.
 
+## 2026-02-16 - #119 - Add changelog formatting checker for roadmap entries
+- PR: #124
+- Summary:
+  - added `scripts/check_roadmap_changelog_format.sh` to validate changelog entry structure
+  - validates required sections (`PR`, `Summary`, `Validation`, `Risk/Notes`) and heading format
+  - documented usage in `README.md`
+- Validation:
+  - ./scripts/check_roadmap_changelog_format.sh
+  - ant clean run-junit5-tests
+  - ant clean jar
+- Risk/Notes: checker relies on current markdown heading and section naming conventions
+
 ## 2026-02-16 - #120 - Create roadmap_v13 after v12 completion
 - PR: #123
 - Summary:

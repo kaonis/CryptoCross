@@ -40,6 +40,11 @@ Roadmap/index/changelog consistency can be checked with:
 ./scripts/check_roadmap_links.sh
 ```
 
+Roadmap changelog entry formatting can be checked with:
+```bash
+./scripts/check_roadmap_changelog_format.sh
+```
+
 Gameplay settings/defaults snapshot:
 - `docs/gameplay_settings_snapshot.md`
 
