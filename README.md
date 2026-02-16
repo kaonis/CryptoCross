@@ -45,6 +45,13 @@ Roadmap changelog entry formatting can be checked with:
 ./scripts/check_roadmap_changelog_format.sh
 ```
 
+PR body required sections can be linted with:
+```bash
+./scripts/check_pr_body_sections.sh /path/to/pr_body.md
+# or from GitHub directly:
+gh pr view <number> --json body --jq .body | ./scripts/check_pr_body_sections.sh
+```
+
 Open issue status for the active roadmap can be listed with:
 ```bash
 ./scripts/roadmap_open_issue_status.sh
